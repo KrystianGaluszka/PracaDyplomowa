@@ -17,11 +17,12 @@ namespace NBA_Manager_Api.Models
         public string Email { get; set; }
         public string ClubName { get; set; }
         public string Country { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
         public float Money { get; set; }
-        public int RankPoints { get; set; }
         public string ProfilePicturePath { get; set; }
         public IEnumerable<UsersPlayerModel> UsersPlayers { get; set; }
         public IEnumerable<UsersItemModel> UsersItems { get; set; }
+        public IEnumerable<UserMatchDetailsModel> UserMatchesDetails { get; set; }
+        public IEnumerable<UserMatchHistoryModel> UserMatchesHistory { get; set; }
     }
 }

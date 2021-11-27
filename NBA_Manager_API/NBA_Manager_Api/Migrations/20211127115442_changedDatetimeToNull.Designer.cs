@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NBA_Manager_Api.DataAccess;
 
 namespace NBA_Manager_Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211127115442_changedDatetimeToNull")]
+    partial class changedDatetimeToNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,9 +36,6 @@ namespace NBA_Manager_Api.Migrations
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UsersPlayerId")
                         .HasColumnType("int");
@@ -214,70 +213,6 @@ namespace NBA_Manager_Api.Migrations
                     b.ToTable("SportsHalls");
                 });
 
-            modelBuilder.Entity("NBA_Manager_Api.Models.UserMatchDetailsModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("MatchesDrawn")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MatchesLost")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MatchesPlayed")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MatchesWon")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RankPoints")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UsersMatchDetails");
-                });
-
-            modelBuilder.Entity("NBA_Manager_Api.Models.UserMatchHistoryModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime?>("MatchDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("OpponentClub")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OpponentScore")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserClub")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("UserScore")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UsersMatchHistory");
-                });
-
             modelBuilder.Entity("NBA_Manager_Api.Models.UserModel", b =>
                 {
                     b.Property<string>("Id")
@@ -306,6 +241,9 @@ namespace NBA_Manager_Api.Migrations
 
                     b.Property<string>("ProfilePicturePath")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RankPoints")
+                        .HasColumnType("int");
 
                     b.Property<int?>("SponsorId")
                         .HasColumnType("int");
@@ -405,28 +343,10 @@ namespace NBA_Manager_Api.Migrations
             modelBuilder.Entity("NBA_Manager_Api.Models.PlayerModel", b =>
                 {
                     b.HasOne("NBA_Manager_Api.Models.PlayerInfoModel", "PlayerInfo")
-                        .WithMany("Players")
+                        .WithMany("PlayerModels")
                         .HasForeignKey("PlayerInfoId");
 
                     b.Navigation("PlayerInfo");
-                });
-
-            modelBuilder.Entity("NBA_Manager_Api.Models.UserMatchDetailsModel", b =>
-                {
-                    b.HasOne("NBA_Manager_Api.Models.UserModel", "User")
-                        .WithMany("UserMatchesDetails")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("NBA_Manager_Api.Models.UserMatchHistoryModel", b =>
-                {
-                    b.HasOne("NBA_Manager_Api.Models.UserModel", "User")
-                        .WithMany("UserMatchesHistory")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("NBA_Manager_Api.Models.UserModel", b =>
@@ -486,7 +406,7 @@ namespace NBA_Manager_Api.Migrations
 
             modelBuilder.Entity("NBA_Manager_Api.Models.PlayerInfoModel", b =>
                 {
-                    b.Navigation("Players");
+                    b.Navigation("PlayerModels");
                 });
 
             modelBuilder.Entity("NBA_Manager_Api.Models.PlayerModel", b =>
@@ -506,10 +426,6 @@ namespace NBA_Manager_Api.Migrations
 
             modelBuilder.Entity("NBA_Manager_Api.Models.UserModel", b =>
                 {
-                    b.Navigation("UserMatchesDetails");
-
-                    b.Navigation("UserMatchesHistory");
-
                     b.Navigation("UsersItems");
 
                     b.Navigation("UsersPlayers");

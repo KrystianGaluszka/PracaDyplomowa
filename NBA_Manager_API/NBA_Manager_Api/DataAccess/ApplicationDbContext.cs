@@ -23,6 +23,8 @@ namespace NBA_Manager_Api.DataAccess
         public DbSet<SponsorModel> Sponsors { get; set; }
         public DbSet<SportsHallModel> SportsHalls { get; set; }
         public DbSet<ItemModel> Items { get; set; }
+        public DbSet<UserMatchDetailsModel> UsersMatchDetails { get; set; }
+        public DbSet<UserMatchHistoryModel> UsersMatchHistory { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,6 +37,10 @@ namespace NBA_Manager_Api.DataAccess
                     .WithMany(x => x.UsersPlayers).HasForeignKey(x => x.UserId);
             builder.Entity<UsersItemModel>().HasOne(x => x.User)
                     .WithMany(x => x.UsersItems).HasForeignKey(x => x.UserId);
+            builder.Entity<UserMatchHistoryModel>().HasOne(x => x.User)
+                    .WithMany(x => x.UserMatchesHistory).HasForeignKey(x => x.UserId);
+            builder.Entity<UserMatchDetailsModel>().HasOne(x => x.User)
+                    .WithMany(x => x.UserMatchesDetails).HasForeignKey(x => x.UserId);
         }
     }
 }

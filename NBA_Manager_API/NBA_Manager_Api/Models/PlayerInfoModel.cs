@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,6 +8,7 @@ namespace NBA_Manager_Api.Models
 {
     public class PlayerInfoModel
     {
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -16,6 +18,6 @@ namespace NBA_Manager_Api.Models
         public float Weight { get; set; }
         public float Height { get; set; }
         public bool IsLegend { get; set; }
-        public IEnumerable<PlayerModel> PlayerModels { get; set; }
+        public IEnumerable<PlayerModel> Players { get; set; }
     }
 }
