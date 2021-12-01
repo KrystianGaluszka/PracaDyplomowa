@@ -4,14 +4,16 @@ using Basketball_Manager_Db.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Basketball_Manager_Db.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211129222503_AddedRelationsWithAuctions")]
+    partial class AddedRelationsWithAuctions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,6 +27,9 @@ namespace Basketball_Manager_Db.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AuctionId")
+                        .HasColumnType("int");
 
                     b.Property<float>("Bid")
                         .HasColumnType("real");
@@ -40,6 +45,8 @@ namespace Basketball_Manager_Db.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuctionId");
+
                     b.HasIndex("UsersPlayerId");
 
                     b.ToTable("AuctionDetails");
@@ -51,9 +58,6 @@ namespace Basketball_Manager_Db.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AuctionDetailsId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Club")
                         .HasColumnType("nvarchar(max)");
@@ -86,8 +90,6 @@ namespace Basketball_Manager_Db.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AuctionDetailsId");
 
                     b.ToTable("Auctions");
                 });
@@ -389,20 +391,19 @@ namespace Basketball_Manager_Db.Migrations
 
             modelBuilder.Entity("Basketball_Manager_Db.Models.AuctionDetailsModel", b =>
                 {
+                    b.HasOne("Basketball_Manager_Db.Models.AuctionModel", "Auction")
+                        .WithMany("AuctionDetails")
+                        .HasForeignKey("AuctionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Basketball_Manager_Db.Models.UsersPlayerModel", "UsersPlayer")
                         .WithMany("AuctionDetails")
                         .HasForeignKey("UsersPlayerId");
 
+                    b.Navigation("Auction");
+
                     b.Navigation("UsersPlayer");
-                });
-
-            modelBuilder.Entity("Basketball_Manager_Db.Models.AuctionModel", b =>
-                {
-                    b.HasOne("Basketball_Manager_Db.Models.AuctionDetailsModel", "AuctionDetails")
-                        .WithMany("Auctions")
-                        .HasForeignKey("AuctionDetailsId");
-
-                    b.Navigation("AuctionDetails");
                 });
 
             modelBuilder.Entity("Basketball_Manager_Db.Models.PlayerModel", b =>
@@ -477,9 +478,9 @@ namespace Basketball_Manager_Db.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Basketball_Manager_Db.Models.AuctionDetailsModel", b =>
+            modelBuilder.Entity("Basketball_Manager_Db.Models.AuctionModel", b =>
                 {
-                    b.Navigation("Auctions");
+                    b.Navigation("AuctionDetails");
                 });
 
             modelBuilder.Entity("Basketball_Manager_Db.Models.ItemModel", b =>

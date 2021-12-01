@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Basketball_Manager_Db.Interfaces;
+using Basketball_Manager_Db.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,36 +14,43 @@ namespace Basketball_Manager_Api.Controllers
     [ApiController]
     public class SponsorController : ControllerBase
     {
+        private readonly ISponsorRepository _sponsorRepository;
+
+        public SponsorController(ISponsorRepository sponsorRepository)
+        {
+            _sponsorRepository = sponsorRepository;
+        }
+
         // GET: api/<SponsorController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<SponsorModel>> GetAll()
         {
-            return new string[] { "value1", "value2" };
+            return await _sponsorRepository.GetAllSponsors();
         }
 
         // GET api/<SponsorController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<SponsorModel> Get(int id)
         {
-            return "value";
+            return await _sponsorRepository.GetSponsor(id);
         }
 
-        // POST api/<SponsorController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+        //// POST api/<SponsorController>
+        //[HttpPost]
+        //public void Post([FromBody] string value)
+        //{
+        //}
 
-        // PUT api/<SponsorController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //// PUT api/<SponsorController>/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
-        // DELETE api/<SponsorController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE api/<SponsorController>/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

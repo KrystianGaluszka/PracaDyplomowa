@@ -37,10 +37,18 @@ namespace Basketball_Manager_Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Basketball_Manager_Api", Version = "v1" });
             });
 
+            services.AddScoped<IAuctionRepository, AuctionRepository>();
+            services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
+            services.AddScoped<ISponsorRepository, SponsorRepository>();
+            services.AddScoped<ISportsHallRepository, SportsHallRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("sqlDb")));
+
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);

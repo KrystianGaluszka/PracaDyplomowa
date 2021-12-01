@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 
-namespace Basketball_Manager_Db.Models
+namespace Basketball_Manager_Db.PostModels
 {
-    public class AuctionModel
+    public class AuctionPostModel
     {
-        [Key]
-        public int Id { get; set; }
+        public Auction AuctionModel { get; set; }
+        public AuctionDetails AuctionDetailsModel { get; set; }
+    }
+    public class Auction
+    {
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Country { get; set; }
@@ -20,6 +22,12 @@ namespace Basketball_Manager_Db.Models
         public int Level { get; set; }
         public float Condition { get; set; }
         public float Salary { get; set; }
-        public virtual AuctionDetailsModel AuctionDetails { get; set; }
+    }
+    public class AuctionDetails
+    {
+        public int UserPlayerId { get; set; }
+        public string UserId { get; set; }
+        public float Price { get; set; }
+        public float Bid { get; set; }
     }
 }

@@ -12,8 +12,8 @@ namespace Basketball_Manager_Db.Models
         public int Id { get; set; }
         public virtual UsersPlayerModel UsersPlayer { get; set; }
         public string UserId { get; set; }
-        public virtual AuctionModel Auction { get; set; }
         public float Price { get; set; }
         public float Bid { get; set; }
+        public virtual IEnumerable<AuctionModel> Auctions { get; set; }
     }
 }

@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Basketball_Manager_Db.Interfaces;
+using Basketball_Manager_Db.Models;
+using Basketball_Manager_Db.PostModels;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,36 +15,44 @@ namespace Basketball_Manager_Api.Controllers
     [ApiController]
     public class AuctionController : ControllerBase
     {
+        private readonly IAuctionRepository _auctionRepository;
+
+        public AuctionController(IAuctionRepository auctionRepository)
+        {
+            _auctionRepository = auctionRepository;
+        }
+
         // GET: api/<AuctionController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<AuctionModel>> GetAll()
         {
-            return new string[] { "value1", "value2" };
+            return await _auctionRepository.GetAllAuctions();
         }
 
         // GET api/<AuctionController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<AuctionModel> Get(int id)
         {
-            return "value";
+            return await _auctionRepository.GetAuction(id);
         }
 
         // POST api/<AuctionController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<AuctionModel> Post(AuctionPostModel auctionPostModel)
         {
+            return await _auctionRepository.PostAuction(auctionPostModel);
         }
 
-        // PUT api/<AuctionController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //// PUT api/<AuctionController>/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
-        // DELETE api/<AuctionController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE api/<AuctionController>/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Basketball_Manager_Db.Models;
+using Basketball_Manager_Db.PutModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace Basketball_Manager_Db.Interfaces
     {
         Task<IEnumerable<ItemModel>> GetAllItems();
         Task<ItemModel> GetItem(int id);
+        Task<UsersItemModel> PutUserItem(int count, ItemPutModel itemPutModel);
     }
 }

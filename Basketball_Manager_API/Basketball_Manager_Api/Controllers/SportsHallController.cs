@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Basketball_Manager_Db.Interfaces;
+using Basketball_Manager_Db.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,36 +14,43 @@ namespace Basketball_Manager_Api.Controllers
     [ApiController]
     public class SportsHallController : ControllerBase
     {
+        private readonly ISportsHallRepository _sportsHallRepository;
+
+        public SportsHallController(ISportsHallRepository sportsHallRepository)
+        {
+            _sportsHallRepository = sportsHallRepository;
+        }
+
         // GET: api/<SportsHallController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<SportsHallModel>> GetAll()
         {
-            return new string[] { "value1", "value2" };
+            return await _sportsHallRepository.GetAllSportsHalls();
         }
 
         // GET api/<SportsHallController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<SportsHallModel> Get(int id)
         {
-            return "value";
+            return await _sportsHallRepository.GetSportsHall(id);
         }
 
-        // POST api/<SportsHallController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+        //// POST api/<SportsHallController>
+        //[HttpPost]
+        //public void Post([FromBody] string value)
+        //{
+        //}
 
-        // PUT api/<SportsHallController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //// PUT api/<SportsHallController>/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
-        // DELETE api/<SportsHallController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE api/<SportsHallController>/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

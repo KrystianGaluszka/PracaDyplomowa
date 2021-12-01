@@ -1,4 +1,6 @@
 ﻿using Basketball_Manager_Db.Models;
+using Basketball_Manager_Db.PostModels;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +12,6 @@ namespace Basketball_Manager_Db.Interfaces
     {
         Task<IEnumerable<AuctionModel>> GetAllAuctions();
         Task<AuctionModel> GetAuction(int id);
+        Task<AuctionModel> PostAuction(AuctionPostModel auctionPostModel);
     }
 }
