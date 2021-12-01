@@ -35,6 +35,10 @@ namespace Basketball_Manager_Db.DataAccess
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<UserModel>()
+                .Property(d => d.BirthDate)
+                .HasColumnType("date");
+
             builder.Entity<UsersPlayerModel>().HasOne(x => x.User)
                     .WithMany(x => x.UsersPlayers).HasForeignKey(x => x.UserId);
             builder.Entity<UsersItemModel>().HasOne(x => x.User)

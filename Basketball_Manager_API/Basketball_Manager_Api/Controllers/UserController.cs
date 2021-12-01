@@ -1,5 +1,6 @@
 ﻿using Basketball_Manager_Db.Interfaces;
 using Basketball_Manager_Db.Models;
+using Basketball_Manager_Db.PostModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -36,11 +37,11 @@ namespace Basketball_Manager_Api.Controllers
         }
 
 
-        //// POST api/<UserController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
+        [HttpPost]
+        public async Task<UserModel> PostRegister(RegisterPostModel registerPostModel)
+        {
+            return await _userRepository.PostAccountCreate(registerPostModel);
+        }
 
         //// PUT api/<UserController>/5
         //[HttpPut("{id}")]

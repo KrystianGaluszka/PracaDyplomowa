@@ -1,4 +1,5 @@
 ﻿using Basketball_Manager_Db.Models;
+using Basketball_Manager_Db.PostModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace Basketball_Manager_Db.Interfaces
     {
         Task<IEnumerable<UserModel>> GetAllUsers();
         Task<UserModel> GetUser(string id);
+        Task<UserModel> PostAccountCreate(RegisterPostModel registerPostModel);
     }
 }
