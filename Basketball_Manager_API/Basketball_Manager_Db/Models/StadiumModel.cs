@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Basketball_Manager_Db.Models
 {
-    public class SportsHallModel
+    public class StadiumModel
     {
         [Key]
         public int Id { get; set; }

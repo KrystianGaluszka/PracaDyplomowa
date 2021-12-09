@@ -9,22 +9,22 @@ using System.Threading.Tasks;
 
 namespace Basketball_Manager_Db.Repositories
 {
-    public class SportsHallRepository : ISportsHallRepository
+    public class StadiumRepository : IStadiumRepository
     {
         private readonly ApplicationDbContext _context;
-        public SportsHallRepository(ApplicationDbContext context)
+        public StadiumRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<SportsHallModel>> GetAllSportsHalls()
+        public async Task<IEnumerable<StadiumModel>> GetAllStadiums()
         {
-            return await _context.SportsHalls.ToListAsync();
+            return await _context.Stadiums.ToListAsync();
         }
 
-        public async Task<SportsHallModel> GetSportsHall(int id)
+        public async Task<StadiumModel> GetStadium(int id)
         {
-            return await _context.SportsHalls.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Stadiums.FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

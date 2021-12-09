@@ -44,7 +44,7 @@ namespace Basketball_Manager_Db.Repositories
                 });
             }
 
-            var userDetails = new UsersMatchDetailsModel
+            var userDetails = new UserDetailsModel
             {
                 UserId = id,
                 MatchesDrawn = 0,
@@ -53,7 +53,6 @@ namespace Basketball_Manager_Db.Repositories
                 MatchesWon = 0,
                 RankPoints = 0
             };
-            var userDetailsList = new List<UsersMatchDetailsModel> { userDetails };
 
             var userModel = new UserModel
             {
@@ -64,13 +63,33 @@ namespace Basketball_Manager_Db.Repositories
                 BirthDate = registerPostModel.BirthDate.HasValue ? registerPostModel.BirthDate : null,
                 Money = 25000,
                 UsersItems = emptyItems,
-                UserMatchesDetails = userDetailsList
+                UserDetail = userDetails
             };
 
             _context.Users.Add(userModel);
             await _context.SaveChangesAsync();
 
             return await _context.Users.OrderByDescending(x => x.Id).FirstOrDefaultAsync();
+        }
+
+        public async Task<string> PostAccountLogin(LoginPostModel loginPostModel)
+        {
+            var users = _context.Users;
+
+            var user = await users.Where(x => x.Email == loginPostModel.Email).FirstOrDefaultAsync();
+
+            if (user != null)
+            {
+                if (user.Password == loginPostModel.Password)
+                {
+                    return user.Id;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            return  "";
         }
     }
 }

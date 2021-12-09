@@ -13,12 +13,12 @@ namespace Basketball_Manager_Db.Models
         public string UserId { get; set; }
         public virtual UserModel User { get; set; }
         public virtual PlayerModel Player { get; set; }
+        public virtual AuctionModel Auction { get; set; }
         public int Level { get; set; }
         public float Condition { get; set; }
         public float Salary { get; set; }
         public int Contract { get; set; }
         public bool IsCaptain { get; set; }
         public bool IsOnAuction { get; set; }
-        public virtual IEnumerable<AuctionDetailsModel> AuctionDetails { get; set; }
     }
 }

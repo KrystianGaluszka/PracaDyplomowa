@@ -17,14 +17,12 @@ namespace Basketball_Manager_Db.DataAccess
         public DbSet<UsersPlayerModel> UsersPlayers { get; set; }
         public DbSet<UsersItemModel> UsersItems { get; set; }
         public DbSet<PlayerModel> Players  { get; set; }
-        public DbSet<PlayerInfoModel> PlayersInfo { get; set; }
         public DbSet<AuctionModel> Auctions { get; set; }
-        public DbSet<AuctionDetailsModel> AuctionDetails { get; set; }
         public DbSet<SponsorModel> Sponsors { get; set; }
-        public DbSet<SportsHallModel> SportsHalls { get; set; }
+        public DbSet<StadiumModel> Stadiums { get; set; }
         public DbSet<ItemModel> Items { get; set; }
-        public DbSet<UsersMatchDetailsModel> UsersMatchDetails { get; set; }
-        public DbSet<UsersMatchHistoryModel> UsersMatchHistory { get; set; }
+        public DbSet<UserDetailsModel> UsersDetails { get; set; }
+        public DbSet<UsersMatchHistoryModel> UsersMatchesHistory { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,8 +33,12 @@ namespace Basketball_Manager_Db.DataAccess
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
             builder.Entity<UserModel>()
                 .Property(d => d.BirthDate)
+                .HasColumnType("date");
+            builder.Entity<UsersMatchHistoryModel>()
+                .Property(d => d.MatchDate)
                 .HasColumnType("date");
 
             builder.Entity<UsersPlayerModel>().HasOne(x => x.User)
@@ -45,8 +47,10 @@ namespace Basketball_Manager_Db.DataAccess
                     .WithMany(x => x.UsersItems).HasForeignKey(x => x.UserId);
             builder.Entity<UsersMatchHistoryModel>().HasOne(x => x.User)
                     .WithMany(x => x.UserMatchesHistory).HasForeignKey(x => x.UserId);
-            builder.Entity<UsersMatchDetailsModel>().HasOne(x => x.User)
-                    .WithMany(x => x.UserMatchesDetails).HasForeignKey(x => x.UserId);
+            builder.Entity<UserModel>().HasOne(x => x.UserDetail)
+                    .WithOne(x=> x.User).HasForeignKey<UserDetailsModel>(x => x.UserId);
+            builder.Entity<UsersPlayerModel>().HasOne(x => x.Auction)
+                    .WithOne(x => x.UsersPlayer).HasForeignKey<AuctionModel>(x => x.UserPlayerId);
         }
     }
 }

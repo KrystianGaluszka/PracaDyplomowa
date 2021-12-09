@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Basketball_Manager_Db.Models
 {
-    public class UsersMatchDetailsModel
+    public class UserDetailsModel
     {
         [Key]
         public int Id { get; set; }

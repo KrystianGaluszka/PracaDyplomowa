@@ -30,32 +30,25 @@ namespace Basketball_Manager_Db.Repositories
         }
         public async Task<AuctionModel> PostAuction(AuctionPostModel auctionPostModel)
         {
-            var player = _context.UsersPlayers.Where(x => x.Id == auctionPostModel.AuctionDetailsModel.UserPlayerId).FirstOrDefault();
-            var auctionDetailsModel = new AuctionDetailsModel
+            var player = _context.UsersPlayers.Where(x => x.Id == auctionPostModel.UserPlayerId).FirstOrDefault();
+
+            var auctions = _context.Auctions.OrderByDescending(x => x.Id).FirstOrDefault();
+            var auctionModel = new AuctionModel
             {
-                UserId = auctionPostModel.AuctionDetailsModel.UserId,
+                UserId = auctionPostModel.UserId,
                 UsersPlayer = player,
                 Bid = 1000,
                 Price = 2500,
-            };
-
-            _context.AuctionDetails.Add(auctionDetailsModel);
-            _context.SaveChanges();
-
-            var auctionDetails = _context.AuctionDetails.OrderByDescending(x => x.Id).FirstOrDefault();
-            var auctionModel = new AuctionModel
-            {
-                Club = auctionPostModel.AuctionModel.Club,
-                Condition = auctionPostModel.AuctionModel.Condition,
-                Country = auctionPostModel.AuctionModel.Country,
-                Height = auctionPostModel.AuctionModel.Height,
-                League = auctionPostModel.AuctionModel.League,
-                Level = auctionPostModel.AuctionModel.Level,
-                Name = auctionPostModel.AuctionModel.Name,
-                Salary = auctionPostModel.AuctionModel.Salary,
-                Surname = auctionPostModel.AuctionModel.Surname,
-                Weight = auctionPostModel.AuctionModel.Weight,
-                AuctionDetails = auctionDetails
+                Club = auctionPostModel.Club,
+                Condition = auctionPostModel.Condition,
+                Country = auctionPostModel.Country,
+                Height = auctionPostModel.Height,
+                League = auctionPostModel.League,
+                Level = auctionPostModel.Level,
+                Name = auctionPostModel.Name,
+                Salary = auctionPostModel.Salary,
+                Surname = auctionPostModel.Surname,
+                Weight = auctionPostModel.Weight,
             };
             _context.Auctions.Add(auctionModel);
             await _context.SaveChangesAsync();

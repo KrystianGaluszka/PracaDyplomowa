@@ -10,6 +10,9 @@ namespace Basketball_Manager_Db.Models
     {
         [Key]
         public int Id { get; set; }
+        public string UserId { get; set; }
+        public int UserPlayerId { get; set; }
+        public virtual UsersPlayerModel UsersPlayer { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Country { get; set; }
@@ -19,7 +22,8 @@ namespace Basketball_Manager_Db.Models
         public float Height { get; set; }
         public int Level { get; set; }
         public float Condition { get; set; }
-        public float Salary { get; set; }
-        public virtual AuctionDetailsModel AuctionDetails { get; set; }
+        public float Salary { get; set; } 
+        public float Price { get; set; }
+        public float Bid { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using Basketball_Manager_Db.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Basketball_Manager_Db.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211209162009_changedAuctionAndPlayersTableAndUserDetails")]
+    partial class changedAuctionAndPlayersTableAndUserDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,7 +64,7 @@ namespace Basketball_Manager_Db.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserPlayerId")
+                    b.Property<int?>("UsersPlayerId")
                         .HasColumnType("int");
 
                     b.Property<float>("Weight")
@@ -70,8 +72,7 @@ namespace Basketball_Manager_Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserPlayerId")
-                        .IsUnique();
+                    b.HasIndex("UsersPlayerId");
 
                     b.ToTable("Auctions");
                 });
@@ -157,7 +158,7 @@ namespace Basketball_Manager_Db.Migrations
                     b.ToTable("Sponsors");
                 });
 
-            modelBuilder.Entity("Basketball_Manager_Db.Models.StadiumModel", b =>
+            modelBuilder.Entity("Basketball_Manager_Db.Models.SportsHallModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -178,7 +179,7 @@ namespace Basketball_Manager_Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Stadiums");
+                    b.ToTable("SportsHalls");
                 });
 
             modelBuilder.Entity("Basketball_Manager_Db.Models.UserDetailsModel", b =>
@@ -212,7 +213,7 @@ namespace Basketball_Manager_Db.Migrations
                         .IsUnique()
                         .HasFilter("[UserId] IS NOT NULL");
 
-                    b.ToTable("UsersDetails");
+                    b.ToTable("UsersMatchDetails");
                 });
 
             modelBuilder.Entity("Basketball_Manager_Db.Models.UserModel", b =>
@@ -313,7 +314,7 @@ namespace Basketball_Manager_Db.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UsersMatchesHistory");
+                    b.ToTable("UsersMatchHistory");
                 });
 
             modelBuilder.Entity("Basketball_Manager_Db.Models.UsersPlayerModel", b =>
@@ -359,10 +360,8 @@ namespace Basketball_Manager_Db.Migrations
             modelBuilder.Entity("Basketball_Manager_Db.Models.AuctionModel", b =>
                 {
                     b.HasOne("Basketball_Manager_Db.Models.UsersPlayerModel", "UsersPlayer")
-                        .WithOne("Auction")
-                        .HasForeignKey("Basketball_Manager_Db.Models.AuctionModel", "UserPlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Auctions")
+                        .HasForeignKey("UsersPlayerId");
 
                     b.Navigation("UsersPlayer");
                 });
@@ -382,7 +381,7 @@ namespace Basketball_Manager_Db.Migrations
                         .WithMany("UserModels")
                         .HasForeignKey("SponsorId");
 
-                    b.HasOne("Basketball_Manager_Db.Models.StadiumModel", "SportsHall")
+                    b.HasOne("Basketball_Manager_Db.Models.SportsHallModel", "SportsHall")
                         .WithMany("UserModels")
                         .HasForeignKey("SportsHallId");
 
@@ -445,7 +444,7 @@ namespace Basketball_Manager_Db.Migrations
                     b.Navigation("UserModels");
                 });
 
-            modelBuilder.Entity("Basketball_Manager_Db.Models.StadiumModel", b =>
+            modelBuilder.Entity("Basketball_Manager_Db.Models.SportsHallModel", b =>
                 {
                     b.Navigation("UserModels");
                 });
@@ -463,7 +462,7 @@ namespace Basketball_Manager_Db.Migrations
 
             modelBuilder.Entity("Basketball_Manager_Db.Models.UsersPlayerModel", b =>
                 {
-                    b.Navigation("Auction");
+                    b.Navigation("Auctions");
                 });
 #pragma warning restore 612, 618
         }

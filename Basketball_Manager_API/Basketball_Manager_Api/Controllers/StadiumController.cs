@@ -12,27 +12,27 @@ namespace Basketball_Manager_Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SportsHallController : ControllerBase
+    public class StadiumController : ControllerBase
     {
-        private readonly ISportsHallRepository _sportsHallRepository;
+        private readonly IStadiumRepository _stadiumRepository;
 
-        public SportsHallController(ISportsHallRepository sportsHallRepository)
+        public StadiumController(IStadiumRepository stadiumRepository)
         {
-            _sportsHallRepository = sportsHallRepository;
+            _stadiumRepository = stadiumRepository;
         }
 
         // GET: api/<SportsHallController>
         [HttpGet]
-        public async Task<IEnumerable<SportsHallModel>> GetAll()
+        public async Task<IEnumerable<StadiumModel>> GetAll()
         {
-            return await _sportsHallRepository.GetAllSportsHalls();
+            return await _stadiumRepository.GetAllStadiums();
         }
 
         // GET api/<SportsHallController>/5
         [HttpGet("{id}")]
-        public async Task<SportsHallModel> Get(int id)
+        public async Task<StadiumModel> Get(int id)
         {
-            return await _sportsHallRepository.GetSportsHall(id);
+            return await _stadiumRepository.GetStadium(id);
         }
 
         //// POST api/<SportsHallController>

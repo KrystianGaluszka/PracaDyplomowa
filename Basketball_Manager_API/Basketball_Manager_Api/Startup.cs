@@ -30,6 +30,14 @@ namespace Basketball_Manager_Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("ApiCorsPolicy", builder =>
+                {
+                    builder.WithOrigins("http://localhost:44326").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                });
+            }); // Make sure you call this previous to AddMvc
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -41,7 +49,7 @@ namespace Basketball_Manager_Api
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<ISponsorRepository, SponsorRepository>();
-            services.AddScoped<ISportsHallRepository, SportsHallRepository>();
+            services.AddScoped<IStadiumRepository, StadiumRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
 
 
@@ -57,6 +65,8 @@ namespace Basketball_Manager_Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("ApiCorsPolicy");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

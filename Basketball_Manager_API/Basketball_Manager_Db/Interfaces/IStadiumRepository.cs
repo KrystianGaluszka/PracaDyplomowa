@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Basketball_Manager_Db.Interfaces
 {
-    public interface ISportsHallRepository
+    public interface IStadiumRepository
     {
-        Task<IEnumerable<SportsHallModel>> GetAllSportsHalls();
-        Task<SportsHallModel> GetSportsHall(int id);
+        Task<IEnumerable<StadiumModel>> GetAllStadiums();
+        Task<StadiumModel> GetStadium(int id);
     }
 }

@@ -12,5 +12,7 @@ namespace Basketball_Manager_Db.Interfaces
         Task<IEnumerable<UserModel>> GetAllUsers();
         Task<UserModel> GetUser(string id);
         Task<UserModel> PostAccountCreate(RegisterPostModel registerPostModel);
+
+        Task<string> PostAccountLogin(LoginPostModel loginPostModel);
     }
 }

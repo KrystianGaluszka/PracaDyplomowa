@@ -1,0 +1,11 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    &__email, &__password, &__submit {
+        background-color: gray;
+        width: 150px;
+
+    }
+
+}

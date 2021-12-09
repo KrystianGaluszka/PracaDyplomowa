@@ -13,6 +13,7 @@ namespace Basketball_Manager_Api.Controllers
 {
     [Route("api/User")]
     [ApiController]
+
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
@@ -37,10 +38,15 @@ namespace Basketball_Manager_Api.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<UserModel> PostRegister(RegisterPostModel registerPostModel)
         {
             return await _userRepository.PostAccountCreate(registerPostModel);
+        }
+        [HttpPost("login")]
+        public async Task<string> PostLogin(LoginPostModel loginPostModel)
+        {
+            return await _userRepository.PostAccountLogin(loginPostModel);
         }
 
         //// PUT api/<UserController>/5
