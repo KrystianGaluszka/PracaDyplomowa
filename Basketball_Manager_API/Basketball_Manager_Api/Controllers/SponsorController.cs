@@ -23,16 +23,16 @@ namespace Basketball_Manager_Api.Controllers
 
         // GET: api/<SponsorController>
         [HttpGet]
-        public async Task<IEnumerable<SponsorModel>> GetAll()
+        public async Task<ActionResult> GetAll()
         {
-            return await _sponsorRepository.GetAllSponsors();
+            return Ok(await _sponsorRepository.GetAllSponsors());
         }
 
         // GET api/<SponsorController>/5
         [HttpGet("{id}")]
-        public async Task<SponsorModel> Get(int id)
+        public async Task<ActionResult> Get(int id)
         {
-            return await _sponsorRepository.GetSponsor(id);
+            return Ok(await _sponsorRepository.GetSponsor(id));
         }
 
         //// POST api/<SponsorController>

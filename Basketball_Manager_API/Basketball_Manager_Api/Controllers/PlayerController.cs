@@ -23,16 +23,22 @@ namespace Basketball_Manager_Api.Controllers
 
         // GET: api/<PlayerController>
         [HttpGet]
-        public async Task<IEnumerable<PlayerModel>> GetAll()
+        public async Task<ActionResult> GetAll()
         {
-            return await _playerRepository.GetAllPlayers();
+            return Ok(await _playerRepository.GetAllPlayers());
         }
 
         // GET api/<PlayerController>/5
         [HttpGet("{id}")]
-        public async Task<PlayerModel> Get(int id)
+        public async Task<ActionResult> Get(int id)
         {
-            return await _playerRepository.GetPlayer(id);
+            return Ok(await _playerRepository.GetPlayer(id));
+        }
+
+        [HttpPost("addPlayer")]
+        public async Task<ActionResult> AddPlayer(int id, string userId)
+        {
+            return Ok(await _playerRepository.PostAddPlayer(id, userId));
         }
 
         //// POST api/<PlayerController>

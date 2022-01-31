@@ -1,4 +1,5 @@
 ﻿using Basketball_Manager_Db.Models;
+using Basketball_Manager_Db.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,8 @@ namespace Basketball_Manager_Db.Interfaces
 {
     public interface IPlayerRepository
     {
-        Task<IEnumerable<PlayerModel>> GetAllPlayers();
-        Task<PlayerModel> GetPlayer(int id);
+        Task<IEnumerable<PlayerViewModel>> GetAllPlayers();
+        Task<PlayerViewModel> GetPlayer(int id);
+        Task<UsersPlayerModel> PostAddPlayer(int id, string userId);
     }
 }

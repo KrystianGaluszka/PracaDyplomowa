@@ -12,6 +12,7 @@ namespace Basketball_Manager_Db.Models
         public int Id { get; set; }
         public string UserId { get; set; }
         public virtual UserModel User { get; set; }
+        public int PlayerId { get; set; }
         public virtual PlayerModel Player { get; set; }
         public virtual AuctionModel Auction { get; set; }
         public int Level { get; set; }

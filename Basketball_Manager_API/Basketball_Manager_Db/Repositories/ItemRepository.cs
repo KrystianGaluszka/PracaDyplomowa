@@ -1,13 +1,16 @@
-﻿using Basketball_Manager_Db.DataAccess;
+﻿using AutoMapper;
+using Basketball_Manager_Db.DataAccess;
 using Basketball_Manager_Db.Interfaces;
 using Basketball_Manager_Db.Models;
 using Basketball_Manager_Db.PostModels;
 using Basketball_Manager_Db.PutModels;
+using Basketball_Manager_Db.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Basketball_Manager_Db.AutoMapperConfig;
 
 namespace Basketball_Manager_Db.Repositories
 {
@@ -19,14 +22,24 @@ namespace Basketball_Manager_Db.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<ItemModel>> GetAllItems()
+        public async Task<IEnumerable<ItemViewModel>> GetAllItems()
         {
-            return await _context.Items.ToListAsync();
+            var items = await _context.Items.ToListAsync();
+            var mapper = new Mapper(MapperConfig());
+
+            var itemModel = mapper.Map<List<ItemModel>, List<ItemViewModel>>(items);
+
+            return itemModel;
         }
 
-        public async Task<ItemModel> GetItem(int id)
+        public async Task<ItemViewModel> GetItem(int id)
         {
-            return await _context.Items.FirstOrDefaultAsync(x => x.Id == id);
+            var item = await _context.Items.FirstOrDefaultAsync(x => x.Id == id);
+            var mapper = new Mapper(MapperConfig());
+
+            var itemModel = mapper.Map<ItemModel, ItemViewModel>(item);
+
+            return itemModel;
         }
         public async Task<UsersItemModel> PutUserItem(int count, ItemPutModel itemPutModel)
         {

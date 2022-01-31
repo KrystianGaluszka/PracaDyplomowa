@@ -422,13 +422,13 @@ namespace Basketball_Manager_Db.Migrations
                         .WithMany("UserModels")
                         .HasForeignKey("SponsorId");
 
-                    b.HasOne("Basketball_Manager_Db.Models.SportsHallModel", "SportsHall")
+                    b.HasOne("Basketball_Manager_Db.Models.SportsHallModel", "StadiumModel")
                         .WithMany("UserModels")
                         .HasForeignKey("SportsHallId");
 
                     b.Navigation("Sponsor");
 
-                    b.Navigation("SportsHall");
+                    b.Navigation("StadiumModel");
                 });
 
             modelBuilder.Entity("Basketball_Manager_Db.Models.UsersItemModel", b =>

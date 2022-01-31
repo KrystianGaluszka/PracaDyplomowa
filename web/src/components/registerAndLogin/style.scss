@@ -1,0 +1,102 @@
+.base-container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    background-color: hsl(209, 48%, 18%);
+    padding-bottom: 20px;
+    border-radius: 30px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  
+    .header {
+      font-size: 35px;
+      font-family: "Open Sans", sans-serif;
+      padding-bottom: 15px;
+    }
+  
+    .content {
+      display: flex;
+      flex-direction: column;
+  
+      .image {
+        width: 21em;
+        img {
+          width: 75%;
+          height: 100%;
+          margin: auto;
+          display: block;
+        }
+      }
+  
+      .form {
+        margin-top: 2em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+  
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          width: fit-content;
+          label {
+            font-size: 20px;
+          }
+          input {
+            margin-top: 6px;
+            min-width: 16em;
+            height: 37px;
+            padding: 0px 10px;
+            font-size: 16px;
+            font-family: "Open Sans", sans-serif;
+            background-color: #f3f3f3;
+            border: 0;
+            border-radius: 4px;
+            margin-bottom: 31px;
+            transition: all 250ms ease-in-out;
+            &:hover {
+              background-color: #ffffff;
+              box-shadow: 0px 0px 14px 0.3px #fca86496;
+            }
+  
+            &:focus {
+              outline: none;
+              box-shadow: 0px 0px 12px 0.8px #fd9139b2;
+            }
+          }
+        }
+
+        .invalid-msg {
+          max-width: 230px;
+          margin-top: 0;
+          margin-bottom: 15px;
+        }
+      }
+    }
+  
+    .footer {
+      margin-top: 2em;
+    }
+    //Button
+    .btn {
+        font-size: 21px;
+        padding: 5px 20px;
+        border: 0;
+        background-color: #ff5e00;
+        color: #fff;
+        border-radius: 3px;
+        transition: all 250ms ease-in-out;
+        cursor: pointer;
+        &:hover {
+        background-color: #ff7b2e;
+        color: #fff;
+        }
+        &:focus {
+        outline: none;
+        }
+    }
+  }

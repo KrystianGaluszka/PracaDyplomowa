@@ -24,23 +24,23 @@ namespace Basketball_Manager_Api.Controllers
 
         // GET: api/<AuctionController>
         [HttpGet]
-        public async Task<IEnumerable<AuctionModel>> GetAll()
+        public async Task<ActionResult> GetAll()
         {
-            return await _auctionRepository.GetAllAuctions();
+            return Ok(await _auctionRepository.GetAllAuctions());
         }
 
         // GET api/<AuctionController>/5
         [HttpGet("{id}")]
-        public async Task<AuctionModel> Get(int id)
+        public async Task<ActionResult> Get(int id)
         {
-            return await _auctionRepository.GetAuction(id);
+            return Ok(await _auctionRepository.GetAuction(id));
         }
 
         // POST api/<AuctionController>
         [HttpPost]
-        public async Task<AuctionModel> Post(AuctionPostModel auctionPostModel)
+        public async Task<ActionResult> Post(AuctionPostModel auctionPostModel)
         {
-            return await _auctionRepository.PostAuction(auctionPostModel);
+            return Ok(await _auctionRepository.PostAuction(auctionPostModel));
         }
 
         //// PUT api/<AuctionController>/5

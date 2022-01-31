@@ -14,6 +14,6 @@ namespace Basketball_Manager_Db.Models
         public float Price { get; set; }
         public float IncomePerViewer { get; set; }
         public int SeatsCapacity { get; set; }
-        public virtual IEnumerable<UserModel> UserModels { get; set; }
+        public virtual IEnumerable<UserModel> Users { get; set; }
     }
 }

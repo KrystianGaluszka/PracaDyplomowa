@@ -10,7 +10,9 @@ namespace Basketball_Manager_Db.Models
     {
         [Key]
         public string Id { get; set; }
-        public virtual StadiumModel SportsHall { get; set; }
+        public int ?StadiumId { get; set; }
+        public virtual StadiumModel Stadium { get; set; }
+        public int ?SponsorId { get; set; }
         public virtual SponsorModel Sponsor { get; set; }
         public virtual UserDetailsModel UserDetail { get; set; }
         public string Name { get; set; }
@@ -24,5 +26,6 @@ namespace Basketball_Manager_Db.Models
         public virtual IEnumerable<UsersPlayerModel> UsersPlayers { get; set; }
         public virtual IEnumerable<UsersItemModel> UsersItems { get; set; }
         public virtual IEnumerable<UsersMatchHistoryModel> UserMatchesHistory { get; set; }
+        public virtual IEnumerable<NotificationModel> Notifications { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using Basketball_Manager_Db.Helpers;
 using Basketball_Manager_Db.DataAccess;
 using Basketball_Manager_Db.Interfaces;
 using Basketball_Manager_Db.Repositories;
@@ -8,13 +9,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Basketball_Manager_Api.Helpers;
 
 namespace Basketball_Manager_Api
 {
@@ -34,10 +38,15 @@ namespace Basketball_Manager_Api
             {
                 options.AddPolicy("ApiCorsPolicy", builder =>
                 {
-                    builder.WithOrigins("http://localhost:44326").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                    builder.WithOrigins("http://localhost:44326", "http://localhost:3000/").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
                 });
-            }); // Make sure you call this previous to AddMvc
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
+            });
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -51,21 +60,22 @@ namespace Basketball_Manager_Api
             services.AddScoped<ISponsorRepository, SponsorRepository>();
             services.AddScoped<IStadiumRepository, StadiumRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
+            services.AddScoped<JwtService_Db>();
+            services.AddScoped<JwtService_Api>();
 
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("sqlDb")));
 
-            services.AddControllersWithViews()
-                .AddNewtonsoftJson(options =>
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors("ApiCorsPolicy");
+            
 
             if (env.IsDevelopment())
             {
@@ -78,11 +88,19 @@ namespace Basketball_Manager_Api
 
             app.UseRouting();
 
+            app.UseCors("ApiCorsPolicy");
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "images")),
+                RequestPath = "/images"
             });
         }
     }

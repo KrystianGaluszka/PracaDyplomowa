@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Basketball_Manager_Db.SwaggerConfig;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,9 +18,19 @@ namespace Basketball_Manager_Db.Models
         public string League { get; set; }
         public float Weight { get; set; }
         public float Height { get; set; }
-        public bool IsLegend { get; set; }
+        public PlayerRarity Rarity{ get; set; }
         public int Level { get; set; }
         public float Salary { get; set; }
         public virtual IEnumerable<UsersPlayerModel> UsersPlayers { get; set; }
+    }
+
+    public enum PlayerRarity {
+        Common,
+        Uncommon,
+        Rare,
+        Epic,
+        Masterwork,
+        Legendary
+
     }
 }

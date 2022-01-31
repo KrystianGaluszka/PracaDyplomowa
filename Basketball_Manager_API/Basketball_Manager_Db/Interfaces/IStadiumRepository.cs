@@ -1,4 +1,5 @@
 ﻿using Basketball_Manager_Db.Models;
+using Basketball_Manager_Db.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace Basketball_Manager_Db.Interfaces
 {
     public interface IStadiumRepository
     {
-        Task<IEnumerable<StadiumModel>> GetAllStadiums();
-        Task<StadiumModel> GetStadium(int id);
+        Task<IEnumerable<StadiumViewModel>> GetAllStadiums();
+        Task<StadiumViewModel> GetStadium(int id);
     }
 }

@@ -11,6 +11,7 @@ namespace Basketball_Manager_Db.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+        public string ImagePath { get; set; }
         public virtual IEnumerable<UsersItemModel> UsersItems { get; set; }
     }
 }

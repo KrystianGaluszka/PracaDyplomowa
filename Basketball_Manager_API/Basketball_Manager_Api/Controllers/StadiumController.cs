@@ -23,16 +23,16 @@ namespace Basketball_Manager_Api.Controllers
 
         // GET: api/<SportsHallController>
         [HttpGet]
-        public async Task<IEnumerable<StadiumModel>> GetAll()
+        public async Task<ActionResult> GetAll()
         {
-            return await _stadiumRepository.GetAllStadiums();
+            return Ok(await _stadiumRepository.GetAllStadiums());
         }
 
         // GET api/<SportsHallController>/5
         [HttpGet("{id}")]
-        public async Task<StadiumModel> Get(int id)
+        public async Task<ActionResult> Get(int id)
         {
-            return await _stadiumRepository.GetStadium(id);
+            return Ok(await _stadiumRepository.GetStadium(id));
         }
 
         //// POST api/<SportsHallController>

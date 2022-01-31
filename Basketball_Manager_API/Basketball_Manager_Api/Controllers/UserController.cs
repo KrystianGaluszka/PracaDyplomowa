@@ -1,9 +1,15 @@
-﻿using Basketball_Manager_Db.Interfaces;
+﻿using Basketball_Manager_Api.Helpers;
+using Basketball_Manager_Db.DataAccess;
+using Basketball_Manager_Db.Interfaces;
 using Basketball_Manager_Db.Models;
 using Basketball_Manager_Db.PostModels;
+using Basketball_Manager_Db.PutModels;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,54 +17,111 @@ using System.Threading.Tasks;
 
 namespace Basketball_Manager_Api.Controllers
 {
-    [Route("api/User")]
+    [Route("api/[controller]")]
     [ApiController]
-
+    //[EnableCors()]
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
+        private readonly ApplicationDbContext _context;
+        private readonly JwtService_Api _jwtService;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(IUserRepository userRepository, ApplicationDbContext context, JwtService_Api jwtService)
         {
             _userRepository = userRepository;
+            _context = context;
+            _jwtService = jwtService;
         }
 
-        // GET: api/<UserController>
         [HttpGet]
-        public async Task<IEnumerable<UserModel>> GetUsers()
+        public async Task<IActionResult> GetUsers()
         {
-            return await _userRepository.GetAllUsers();
+            return Ok(await _userRepository.GetAllUsers());
         }
 
-        // GET api/<UserController>/5
         [HttpGet("{id}")]
-        public async Task<UserModel> GetUser(string id)
+        public async Task<IActionResult> GetUser(string id)
         {
-            return await _userRepository.GetUser(id);
+            return Ok(await _userRepository.GetUser(id));
         }
-
 
         [HttpPost("create")]
-        public async Task<UserModel> PostRegister(RegisterPostModel registerPostModel)
+        public async Task<IActionResult> PostRegister(RegisterPostModel registerPostModel)
         {
-            return await _userRepository.PostAccountCreate(registerPostModel);
+            return Ok(await _userRepository.PostAccountCreate(registerPostModel));
         }
         [HttpPost("login")]
-        public async Task<string> PostLogin(LoginPostModel loginPostModel)
+        public IActionResult PostLogin(LoginPostModel loginPostModel)
         {
-            return await _userRepository.PostAccountLogin(loginPostModel);
+            var jwt = _userRepository.GetJwt(loginPostModel);
+            if( jwt != "failed")
+            {
+                Response.Cookies.Append("jwt", jwt, new CookieOptions
+                {
+                    //HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.None,
+                });
+
+                return Ok("success");
+            }
+            else
+            {
+                return BadRequest("Invalid credentials");
+            }
         }
 
-        //// PUT api/<UserController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
+        [HttpGet("authuser")]
+        public IActionResult UserAuthorize()
+        {
+            try
+            {
+                var jwt = Request.Cookies["jwt"];
+                var token = _jwtService.Verify(jwt);
+                var userId = token.Issuer;
 
-        //// DELETE api/<UserController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+                var user = _userRepository.GetUserById(userId);
+
+                return Ok(user);
+            }
+            catch (Exception _)
+            {
+                return Unauthorized();
+            }
+            
+        }
+
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("jwt", new CookieOptions
+            {
+                //HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+            });
+
+            return Ok("success");
+        }
+
+        [HttpPost("uploadImage")]
+        public IActionResult UploadImage(IFormFile image)
+        {
+            var path = "C:\\Basketball_Manager\\Basketball_Manager_API\\Basketball_Manager_Api\\images\\profilePics";
+            var fileName = image.FileName;
+
+            using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+            {
+                image.CopyTo(stream);
+            }
+
+            return Ok();
+        }
+
+        [HttpPut("edit")]
+        public async Task<ActionResult> PutEditUser(UserPutModel userPutModel)
+        {
+            return Ok(await _userRepository.PutEditUser(userPutModel));
+        }
     }
 }
