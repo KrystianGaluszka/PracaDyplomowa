@@ -2,6 +2,7 @@
   "name": "dyplom",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3000",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -12,18 +13,22 @@
     "axios": "^0.24.0",
     "bootstrap": "^5.1.3",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "express": "^4.17.1",
     "framer-motion": "^5.3.2",
     "moment": "^2.29.1",
-    "node-sass": "4.14.1",
+    "node-sass": "^7.0.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.3",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.0.2",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^5.0.0",
+    "react-select": "^5.2.2",
+    "react-select-country-list": "^2.2.3",
     "styled-components": "^5.3.3",
     "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "yarn": "^1.22.17"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -52,6 +57,7 @@
   "devDependencies": {
     "@types/react": "^17.0.36",
     "@types/react-router-dom": "^5.3.2",
+    "@types/react-select-country-list": "^2.2.0",
     "@types/styled-components": "^5.1.15"
   }
 }

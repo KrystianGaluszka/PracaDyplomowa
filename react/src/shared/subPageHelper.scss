@@ -1,0 +1,7 @@
+.scrollable {
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
+    height: calc(100vh - 59px);
+}

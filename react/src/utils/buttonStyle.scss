@@ -1,0 +1,36 @@
+  //Button
+.btn-orange {
+    font-size: 21px;
+    padding: 5px 20px;
+    border: 0;
+    background-color: #ff5e00;
+    color: #fff;
+    border-radius: 3px;
+    transition: all 250ms ease-in-out;
+    cursor: pointer;
+    &:hover {
+    background-color: #ff7b2e;
+    color: #fff;
+    }
+    &:focus {
+    outline: none;
+    }
+}
+.btn-blue {
+    font-size: 20px;
+    padding: 5px 20px;
+    border: 0;
+    background-color: #153b5e;
+    color: #fff;
+    border-radius: 3px;
+    transition: all 250ms ease-in-out;
+    cursor: pointer;
+    &:hover {
+    background-color: #1a4b79;
+    color: #fff;
+    transition: .5s ease;
+    }
+    &:focus {
+    outline: none;
+    }
+}

@@ -1,65 +1,111 @@
-import React, { useState, useEffect, ReactPropTypes } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
-import { Navigate } from 'react-router-dom'
+import axios from 'axios'
+import React, { useState } from 'react'
+import { Alert, Form } from 'react-bootstrap'
+import { Link, useNavigate } from 'react-router-dom'
+import logoImg from '../../logo/logoMini.png'
 import "./style.scss"
+import '../../utils/buttonStyle.scss'
 
-export const Login = (props: any) => {
-    useEffect(() => {
-        (
-            () => {
-                if (localStorage.getItem('user-id') !== "") {
-                    setRedirect(true)
-                }
-                else {
-                    setRedirect(false)
-                }
-            })()
-    })
-
+export const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("")
-    const [redirect, setRedirect] = useState(Boolean)
-
+    const [isChanged, setIsChanged] = useState(false)
     let navigate = useNavigate()
+    // const cookie = document.cookie.indexOf('jwt') // działa
 
-    const OnClickLogin = async () => {
-        let data = { email, password }
-        console.info(JSON.stringify(data))
+    const onClickLogin = async () => {
+        const data = { email, password }
+        let response
+        let apiError
 
-        let result = await fetch("https://localhost:44326/api/User/login", {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            credentials: 'omit',
-            body: JSON.stringify(data)
-        });
-        result = await result.json(); // bez tego ani rusz
+        await axios.post("https://localhost:44326/api/User/login", data)
+            .then(res => {
+                response = res.data
+                console.log(res.data)
+            })
+            .catch(error => {
+                apiError = error
+                console.log('ERROR')
+                console.log(error)
+            })
 
-        const token = JSON.parse(JSON.stringify(result))
-        localStorage.setItem("user-id", token)
-
-        if (localStorage.getItem('user-id') !== "") { // jeśli id jest w pamięci to przenosi nas na /home
+        // await fetch("https://localhost:44326/api/User/login", {
+        //     method: 'post',
+        //     credentials: 'include',
+        //     headers: {'Content-Type': 'application/json'},
+        //     body: JSON.stringify(data)
+        // }).then(res => {
+        //     response = res
+        //     console.log(res)
+        // })
+            console.log(apiError)
+        if (apiError !== undefined) {
+            navigate('/login')
+            setIsChanged(true)
+            window.setTimeout(() => {
+                setIsChanged(false)
+            }, 2000)
+        } else if(response === 'success'){
             navigate('/home')
             window.location.reload()
         }
-        else {
-            navigate('/login')
-        }
 
     }
-    if (redirect) {
-        return <Navigate to="/home" />
-    }
-    else {
-        return (
-            <div className="login-container">
-                <h1>Login in</h1>
-                <input type="text" onChange={ (e) => { setEmail(e.target.value) } } placeholder="Email" className="login-container__email" />
-                <input type="password" onChange={ (e) => { setPassword(e.target.value) } } placeholder="Password" className="login-container__password" />
-                <button onClick={ OnClickLogin } className="login-container__submit">Log in</button>
+
+    const handleKeypress = (e: any) => {
+        //it triggers by pressing the enter key
+      if (e.code === 'Enter' || e.code === "NumpadEnter") {
+        onClickLogin();
+      }
+    };
+
+    return (
+        <div className="base-container">
+            {isChanged ? <Alert variant='danger' className='alert'  show={isChanged}> 
+                <Alert.Heading>Incorrect email or password </Alert.Heading>
+            </Alert> : '' }
+            <div className="header">Login</div>
+            <div className="content">
+                <div className="image">
+                    <img src={ logoImg } />
+                </div>
+                <Form className="form">
+                    <Form.Group className="form-group">
+                        <Form.Label htmlFor="email">Email</Form.Label>
+                        <Form.Control
+                            onKeyPress={e => handleKeypress(e)}
+                            required
+                            type="text" 
+                            name="email" 
+                            placeholder="email" 
+                            onChange={ (e) => { setEmail(e.target.value) } } 
+                        />
+                        <Form.Control.Feedback type="invalid" className='invalid-msg'>
+                            Cannot be blank!
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group className="form-group">
+                        <Form.Label htmlFor="password">Password</Form.Label>
+                        <Form.Control 
+                            onKeyPress={handleKeypress}
+                            required
+                            type="password" 
+                            name="password" 
+                            placeholder="password" 
+                            onChange={ (e) => { setPassword(e.target.value) } } 
+                        />
+                        <Form.Control.Feedback type="invalid" className='invalid-msg'>
+                            Cannot be blank!
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                </Form>
             </div>
-        )
-    }
+            <div className="button-div">
+                <button type="button" className="btn-orange" onClick={ onClickLogin }>Login</button>
+            </div>
+            <div className='footer'>
+                <Link to='/register' className='link'>Dont have account? Register here</Link>
+            </div>
+        </div>
+    )
 }
