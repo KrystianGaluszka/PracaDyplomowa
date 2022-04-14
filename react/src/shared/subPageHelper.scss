@@ -1,7 +1,45 @@
 .scrollable {
-    overflow: scroll;
+    background-image: url("https://localhost:44326/images/bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: auto;
     overflow-x: hidden;
     overflow-y: auto;
     text-align:justify;
-    height: calc(100vh - 59px);
+    height: calc(100vh - 49px);
+    max-height: calc(100vh - 49px);
+    position: relative;
+
+    @media(min-width: 720px) {
+        height: calc(100vh - 54px);
+        max-height: calc(100vh - 54px);
+    }
+    
+    @media(min-width: 992px) {
+        height: calc(100vh - 59px);
+        max-height: calc(100vh - 59px);
+    }
+
+    .alert {
+        position: absolute;
+        width: 450px;
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        .alert-header {
+            text-align: center;
+        }
+    }
+
+    .empty-table {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #dbdbdb;
+        font-size: 18px;
+        font-style: italic;
+        height: 300px;
+    }
 }

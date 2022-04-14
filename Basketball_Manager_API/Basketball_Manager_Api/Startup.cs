@@ -19,6 +19,10 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Basketball_Manager_Api.Helpers;
+using Hangfire;
+using Hangfire.MemoryStorage;
+using Basketball_Manager_Api.HangfireBackgroundService;
+using Basketball_Manager_Api.HangfireBackgroundInterfaces;
 
 namespace Basketball_Manager_Api
 {
@@ -34,13 +38,7 @@ namespace Basketball_Manager_Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy("ApiCorsPolicy", builder =>
-                {
-                    builder.WithOrigins("http://localhost:44326", "http://localhost:3000/").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
-                });
-            });
+            services.AddCors();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -54,6 +52,14 @@ namespace Basketball_Manager_Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Basketball_Manager_Api", Version = "v1" });
             });
 
+            services.AddHangfire(config =>
+                config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                    .UseSimpleAssemblyNameTypeSerializer()
+                    .UseDefaultTypeResolver()
+                    .UseMemoryStorage());
+
+            services.AddHangfireServer();
+
             services.AddScoped<IAuctionRepository, AuctionRepository>();
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
@@ -61,6 +67,7 @@ namespace Basketball_Manager_Api
             services.AddScoped<IStadiumRepository, StadiumRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<INotificationRepository, NotificationRepository>();
+            services.AddScoped<IMatchRepository, MatchRepository>();
             services.AddScoped<JwtService_Db>();
             services.AddScoped<JwtService_Api>();
 
@@ -69,11 +76,14 @@ namespace Basketball_Manager_Api
                 options.UseSqlServer(
                     Configuration.GetConnectionString("sqlDb")));
 
-            
+            services.AddScoped<IRecurringJobs, RecurringJobs>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, 
+            IWebHostEnvironment env,
+            IRecurringJobManager recurringJobManager,
+            IServiceProvider serviceProvider)
         {
             
 
@@ -88,7 +98,9 @@ namespace Basketball_Manager_Api
 
             app.UseRouting();
 
-            app.UseCors("ApiCorsPolicy");
+            app.UseCors(
+                o => o.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowCredentials()
+            );
 
             app.UseAuthorization();
 
@@ -102,6 +114,12 @@ namespace Basketball_Manager_Api
                 FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "images")),
                 RequestPath = "/images"
             });
+
+            app.UseHangfireDashboard();
+            recurringJobManager.AddOrUpdate(
+                "Run_every_day",
+                () => serviceProvider.GetService<IRecurringJobs>().TrainingRewards(),
+                Cron.Daily());
         }
     }
 }

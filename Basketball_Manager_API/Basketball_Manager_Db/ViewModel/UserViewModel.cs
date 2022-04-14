@@ -10,7 +10,7 @@ namespace Basketball_Manager_Db.ViewModel
     {
         public string Id { get; set; }
         public StadiumViewModel Stadium { get; set; }
-        public SponsorViewModel Sponsor { get; set; }
+        public UsersSponsorViewModel UserSponsor { get; set; }
         public UserDetailViewModel UserDetail { get; set; }
         public string Name { get; set; }
         [JsonIgnore] public string Password { get; set; }
@@ -18,11 +18,15 @@ namespace Basketball_Manager_Db.ViewModel
         public string ClubName { get; set; }
         public string Country { get; set; }
         public DateTime? BirthDate { get; set; }
-        public float Money { get; set; }
+        public double Money { get; set; }
         public string ProfilePicturePath { get; set; }
+        public bool IsPlaying { get; set; }
+        public bool IsInQueue { get; set; }
+        public bool IsAccepted { get; set; }
         public IEnumerable<UsersPlayerViewModel> UsersPlayers { get; set; }
         public IEnumerable<UserItemViewModel> UsersItems { get; set; }
-        public IEnumerable<UsersMatchHisotryViewModel> UserMatchesHistory { get; set; }
+        public IEnumerable<UsersMatchHistoryViewModel> UserMatchesHistory { get; set; }
         public IEnumerable<NotificationViewModel> Notifications { get; set; }
+        public IEnumerable<ExpensesViewModel> Expenses { get; set; }
     }
 }

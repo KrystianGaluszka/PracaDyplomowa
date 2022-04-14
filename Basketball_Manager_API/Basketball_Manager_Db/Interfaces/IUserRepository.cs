@@ -13,6 +13,7 @@ namespace Basketball_Manager_Db.Interfaces
     {
         Task<IEnumerable<UserViewModel>> GetAllUsers();
         Task<UserViewModel> GetUser(string id);
+        Task<IEnumerable<RankRequirementViewModel>> GetRankTable();
         Task<string> PostAccountCreate(RegisterPostModel registerPostModel);
         string GetJwt(LoginPostModel loginPostModel);
         UserViewModel GetUserById(string userId);

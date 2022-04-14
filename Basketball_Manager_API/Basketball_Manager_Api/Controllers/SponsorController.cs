@@ -1,5 +1,6 @@
 ﻿using Basketball_Manager_Db.Interfaces;
 using Basketball_Manager_Db.Models;
+using Basketball_Manager_Db.PutModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Basketball_Manager_Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     [ApiController]
     public class SponsorController : ControllerBase
     {
@@ -21,36 +22,33 @@ namespace Basketball_Manager_Api.Controllers
             _sponsorRepository = sponsorRepository;
         }
 
-        // GET: api/<SponsorController>
-        [HttpGet]
-        public async Task<ActionResult> GetAll()
+        [HttpGet("sponsor")]
+        public async Task<ActionResult> GetAllSponsors()
         {
             return Ok(await _sponsorRepository.GetAllSponsors());
         }
 
-        // GET api/<SponsorController>/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult> Get(int id)
+        [HttpGet("sponsor/{id}")]
+        public async Task<ActionResult> GetSponsor(int id)
         {
             return Ok(await _sponsorRepository.GetSponsor(id));
         }
+        [HttpGet("usersponsor")]
+        public async Task<ActionResult> GetAllUserSponsors()
+        {
+            return Ok(await _sponsorRepository.GetAllUserSponsors());
+        }
 
-        //// POST api/<SponsorController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
+        [HttpGet("usersponsor/{id}")]
+        public async Task<ActionResult> GetUserSponsor(int id)
+        {
+            return Ok(await _sponsorRepository.GetUserSponsor(id));
+        }
 
-        //// PUT api/<SponsorController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/<SponsorController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        [HttpPut("sponsor/changesponsor")]
+        public async Task<ActionResult> ChangeSponsor(ChangeSponsorPutModel changeSponsorPutModel)
+        {
+            return Ok(await _sponsorRepository.ChangeSponsor(changeSponsorPutModel));
+        }
     }
 }

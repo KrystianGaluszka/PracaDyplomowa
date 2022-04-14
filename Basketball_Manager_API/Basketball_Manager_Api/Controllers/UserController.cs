@@ -4,6 +4,7 @@ using Basketball_Manager_Db.Interfaces;
 using Basketball_Manager_Db.Models;
 using Basketball_Manager_Db.PostModels;
 using Basketball_Manager_Db.PutModels;
+using Basketball_Manager_Db.ViewModel;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -34,13 +35,13 @@ namespace Basketball_Manager_Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        public async Task<ActionResult> GetUsers()
         {
             return Ok(await _userRepository.GetAllUsers());
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(string id)
+        public async Task<ActionResult<IEnumerable<UserViewModel>>> GetUser(string id)
         {
             return Ok(await _userRepository.GetUser(id));
         }
@@ -51,7 +52,7 @@ namespace Basketball_Manager_Api.Controllers
             return Ok(await _userRepository.PostAccountCreate(registerPostModel));
         }
         [HttpPost("login")]
-        public IActionResult PostLogin(LoginPostModel loginPostModel)
+        public ActionResult PostLogin(LoginPostModel loginPostModel)
         {
             var jwt = _userRepository.GetJwt(loginPostModel);
             if( jwt != "failed")
@@ -72,7 +73,7 @@ namespace Basketball_Manager_Api.Controllers
         }
 
         [HttpGet("authuser")]
-        public IActionResult UserAuthorize()
+        public ActionResult UserAuthorize()
         {
             try
             {
@@ -92,7 +93,7 @@ namespace Basketball_Manager_Api.Controllers
         }
 
         [HttpPost("logout")]
-        public IActionResult Logout()
+        public ActionResult Logout()
         {
             Response.Cookies.Delete("jwt", new CookieOptions
             {
@@ -105,7 +106,7 @@ namespace Basketball_Manager_Api.Controllers
         }
 
         [HttpPost("uploadImage")]
-        public IActionResult UploadImage(IFormFile image)
+        public ActionResult UploadImage(IFormFile image)
         {
             var path = "C:\\Basketball_Manager\\Basketball_Manager_API\\Basketball_Manager_Api\\images\\profilePics";
             var fileName = image.FileName;
@@ -122,6 +123,12 @@ namespace Basketball_Manager_Api.Controllers
         public async Task<ActionResult> PutEditUser(UserPutModel userPutModel)
         {
             return Ok(await _userRepository.PutEditUser(userPutModel));
+        }
+
+        [HttpGet("ranktable")]
+        public async Task<ActionResult> GetRankTable()
+        {
+            return Ok(await _userRepository.GetRankTable());
         }
     }
 }

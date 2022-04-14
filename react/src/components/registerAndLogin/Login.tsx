@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert, Form } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import logoImg from '../../logo/logoMini.png'
@@ -11,7 +11,18 @@ export const Login = () => {
     const [password, setPassword] = useState("")
     const [isChanged, setIsChanged] = useState(false)
     let navigate = useNavigate()
-    // const cookie = document.cookie.indexOf('jwt') // działa
+    const cookie = document.cookie.indexOf('jwt') // działa
+
+    useEffect(() => {
+        const isLogged = () => {
+            if (cookie !== -1) {
+                navigate('/home')
+                window.location.reload()
+            }
+        }
+
+        isLogged()
+    }, [])
 
     const onClickLogin = async () => {
         const data = { email, password }
@@ -28,16 +39,7 @@ export const Login = () => {
                 console.log('ERROR')
                 console.log(error)
             })
-
-        // await fetch("https://localhost:44326/api/User/login", {
-        //     method: 'post',
-        //     credentials: 'include',
-        //     headers: {'Content-Type': 'application/json'},
-        //     body: JSON.stringify(data)
-        // }).then(res => {
-        //     response = res
-        //     console.log(res)
-        // })
+            
             console.log(apiError)
         if (apiError !== undefined) {
             navigate('/login')
@@ -60,11 +62,10 @@ export const Login = () => {
     };
 
     return (
-        <div className="base-container">
+        <div className="base-container login-wrapper">
             {isChanged ? <Alert variant='danger' className='alert'  show={isChanged}> 
                 <Alert.Heading>Incorrect email or password </Alert.Heading>
             </Alert> : '' }
-            <div className="header">Login</div>
             <div className="content">
                 <div className="image">
                     <img src={ logoImg } />

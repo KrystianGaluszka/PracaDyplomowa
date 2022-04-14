@@ -1,0 +1,118 @@
+@import '../../../utils/colors.scss';
+
+.stadium-container {
+    width: 60%;
+    max-height: calc(100vh - 1px) ;
+    background-color: $dark-blue;
+    border-radius: 15px;
+    position: absolute;
+    top: 47%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+
+    .stadium-name-container {
+        position: relative;
+        .stadium-name {
+            display: flex;
+            border:none;
+            color: white;
+            margin: 15px auto;
+            text-align: center;
+            font-size: 32px;
+            padding: 5px 15%;
+            background-color: $orange-shadow;
+            width: fit-content;
+            border-radius: 15px;
+        }
+        .icon {
+           
+            position: absolute;
+            transition: .5s ease;
+            opacity: 0;
+            color: white;
+            top:50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+    
+            img {
+                width: 30px;
+                height: 30px;
+            }
+        }
+        &:hover .stadium-name {
+            opacity: 0.6;
+        }
+          
+        &:hover .icon {
+        opacity: 1;
+        }
+    }
+    
+    .stadium-content {
+        width: 100%;
+        .stadium-picture {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            img {
+                width: 50%;
+                border-radius: 10px;
+            }
+        }
+        .stadium-info {
+            margin: 20px 10%;
+            padding: 10px 20px;
+            margin-top: 50px;
+            background-color: $orange-shadow;
+            border-radius: 15px;
+            box-shadow: inset 0px 0px 20px 5px $orange-shadow-inset;
+            .info-container {
+                display: flex;
+                font-size: 20px;
+                padding: 10px 0;
+                .label {
+                    margin-right: 15px;
+                }
+                .content {
+
+                }
+            }
+            .upgrade-button {
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
+    .alert {
+        position: absolute;
+        width: 450px;
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        .alert-header {
+            text-align: center;
+        }
+    }
+}
+
+.stadium-name-modal {
+    width: 300px;
+    .stadium-name-body {
+        .body-container {
+            .input {
+                text-align: center;
+            }
+            
+            .change-button {
+                display: flex;
+                justify-content: center;
+                margin-top: 15px;
+                .change-btn {
+
+                }
+            }
+        }
+    }
+}

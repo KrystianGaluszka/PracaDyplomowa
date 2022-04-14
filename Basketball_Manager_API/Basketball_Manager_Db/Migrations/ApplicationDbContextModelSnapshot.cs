@@ -30,38 +30,14 @@ namespace Basketball_Manager_Db.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<float>("Bid")
-                        .HasColumnType("real");
+                    b.Property<double>("Bid")
+                        .HasColumnType("float");
 
-                    b.Property<string>("Club")
+                    b.Property<string>("BidUserId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Condition")
-                        .HasColumnType("real");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Height")
-                        .HasColumnType("real");
-
-                    b.Property<string>("League")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Level")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Salary")
-                        .HasColumnType("real");
-
-                    b.Property<string>("Surname")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
@@ -69,15 +45,73 @@ namespace Basketball_Manager_Db.Migrations
                     b.Property<int>("UserPlayerId")
                         .HasColumnType("int");
 
-                    b.Property<float>("Weight")
-                        .HasColumnType("real");
-
                     b.HasKey("Id");
 
                     b.HasIndex("UserPlayerId")
                         .IsUnique();
 
                     b.ToTable("Auctions");
+                });
+
+            modelBuilder.Entity("Basketball_Manager_Db.Models.BackgroundTaskModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("IsStarted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("JobId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaskName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("User2Id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BackgroundTasks");
+                });
+
+            modelBuilder.Entity("Basketball_Manager_Db.Models.ExpensesModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IconPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ItemName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TransactionDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Expenses");
                 });
 
             modelBuilder.Entity("Basketball_Manager_Db.Models.ItemModel", b =>
@@ -88,11 +122,17 @@ namespace Basketball_Manager_Db.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("ImagePath")
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconPath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -118,9 +158,6 @@ namespace Basketball_Manager_Db.Migrations
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Receiver")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Topic")
                         .HasColumnType("nvarchar(max)");
@@ -149,8 +186,8 @@ namespace Basketball_Manager_Db.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Height")
-                        .HasColumnType("real");
+                    b.Property<double>("Height")
+                        .HasColumnType("float");
 
                     b.Property<string>("League")
                         .HasColumnType("nvarchar(max)");
@@ -161,25 +198,31 @@ namespace Basketball_Manager_Db.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PicturePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Position")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Rarity")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Salary")
-                        .HasColumnType("real");
+                    b.Property<double>("Salary")
+                        .HasColumnType("float");
 
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Weight")
-                        .HasColumnType("real");
+                    b.Property<double>("Weight")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
                     b.ToTable("Players");
                 });
 
-            modelBuilder.Entity("Basketball_Manager_Db.Models.SponsorModel", b =>
+            modelBuilder.Entity("Basketball_Manager_Db.Models.RankRequirementModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -187,17 +230,45 @@ namespace Basketball_Manager_Db.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<float>("MatchPrize")
-                        .HasColumnType("real");
+                    b.Property<string>("IconPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PointsLimit")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PointsRequired")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RankName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RankRequirements");
+                });
+
+            modelBuilder.Entity("Basketball_Manager_Db.Models.SponsorsModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<double>("MatchPrize")
+                        .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("TitlePrize")
-                        .HasColumnType("real");
+                    b.Property<int>("RequiredLevel")
+                        .HasColumnType("int");
 
-                    b.Property<float>("WinPrize")
-                        .HasColumnType("real");
+                    b.Property<double>("TitlePrize")
+                        .HasColumnType("float");
+
+                    b.Property<double>("WinPrize")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -212,19 +283,29 @@ namespace Basketball_Manager_Db.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<float>("IncomePerViewer")
-                        .HasColumnType("real");
+                    b.Property<double>("IncomePerViewer")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<int>("SeatsCapacity")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Stadiums");
                 });
@@ -236,6 +317,21 @@ namespace Basketball_Manager_Db.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AllMatchesDrawn")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AllMatchesLost")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AllMatchesPlayed")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AllMatchesWon")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LastSeasonRank")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MatchesDrawn")
                         .HasColumnType("int");
@@ -281,8 +377,17 @@ namespace Basketball_Manager_Db.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Money")
-                        .HasColumnType("real");
+                    b.Property<bool>("IsAccepted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsInQueue")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPlaying")
+                        .HasColumnType("bit");
+
+                    b.Property<double>("Money")
+                        .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -296,14 +401,7 @@ namespace Basketball_Manager_Db.Migrations
                     b.Property<int?>("SponsorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StadiumId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SponsorId");
-
-                    b.HasIndex("StadiumId");
 
                     b.ToTable("Users");
                 });
@@ -342,13 +440,31 @@ namespace Basketball_Manager_Db.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<bool>("IsDone")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("MatchDate")
                         .HasColumnType("date");
 
-                    b.Property<string>("OpponentClub")
+                    b.Property<int>("MinutesLeft")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Mvp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OpponentScore")
+                    b.Property<int>("MvpScore")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SecondsLeft")
+                        .HasColumnType("int");
+
+                    b.Property<string>("User2Club")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("User2Id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("User2Score")
                         .HasColumnType("int");
 
                     b.Property<string>("UserClub")
@@ -375,17 +491,14 @@ namespace Basketball_Manager_Db.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<float>("Condition")
-                        .HasColumnType("real");
+                    b.Property<double>("Condition")
+                        .HasColumnType("float");
 
                     b.Property<int>("Contract")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsCaptain")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsOnAuction")
-                        .HasColumnType("bit");
+                    b.Property<int>("Experience")
+                        .HasColumnType("int");
 
                     b.Property<int>("Level")
                         .HasColumnType("int");
@@ -393,8 +506,18 @@ namespace Basketball_Manager_Db.Migrations
                     b.Property<int>("PlayerId")
                         .HasColumnType("int");
 
-                    b.Property<float>("Salary")
-                        .HasColumnType("real");
+                    b.Property<int>("RequiredExperience")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Salary")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TrainingType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -408,6 +531,123 @@ namespace Basketball_Manager_Db.Migrations
                     b.ToTable("UsersPlayers");
                 });
 
+            modelBuilder.Entity("Basketball_Manager_Db.Models.UsersPlayerPointsModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AllOnePoints")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AllThreePoints")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AllTwoPoints")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OnePoints")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ThreePoints")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TwoPoints")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserPlayerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserPlayerId")
+                        .IsUnique();
+
+                    b.ToTable("UsersPlayersPoints");
+                });
+
+            modelBuilder.Entity("Basketball_Manager_Db.Models.UsersPlayerStateModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("IsBoosted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsCaptain")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsInjured")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsOnAuction")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsOnBench")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPlaying")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserPlayerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserPlayerId")
+                        .IsUnique();
+
+                    b.ToTable("UsersPlayerStates");
+                });
+
+            modelBuilder.Entity("Basketball_Manager_Db.Models.UsersSponsorModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("MatchPrizeCount")
+                        .HasColumnType("int");
+
+                    b.Property<double>("MatchPrizeTotality")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("SponsorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TitlePrizeCount")
+                        .HasColumnType("int");
+
+                    b.Property<double>("TitlePrizeTotality")
+                        .HasColumnType("float");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("WinPrizeCount")
+                        .HasColumnType("int");
+
+                    b.Property<double>("WinPrizeTotality")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SponsorId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
+                    b.ToTable("UsersSponsors");
+                });
+
             modelBuilder.Entity("Basketball_Manager_Db.Models.AuctionModel", b =>
                 {
                     b.HasOne("Basketball_Manager_Db.Models.UsersPlayerModel", "UsersPlayer")
@@ -419,11 +659,29 @@ namespace Basketball_Manager_Db.Migrations
                     b.Navigation("UsersPlayer");
                 });
 
+            modelBuilder.Entity("Basketball_Manager_Db.Models.ExpensesModel", b =>
+                {
+                    b.HasOne("Basketball_Manager_Db.Models.UserModel", "User")
+                        .WithMany("Expenses")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Basketball_Manager_Db.Models.NotificationModel", b =>
                 {
                     b.HasOne("Basketball_Manager_Db.Models.UserModel", "User")
                         .WithMany("Notifications")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Basketball_Manager_Db.Models.StadiumModel", b =>
+                {
+                    b.HasOne("Basketball_Manager_Db.Models.UserModel", "User")
+                        .WithOne("Stadium")
+                        .HasForeignKey("Basketball_Manager_Db.Models.StadiumModel", "UserId");
 
                     b.Navigation("User");
                 });
@@ -435,21 +693,6 @@ namespace Basketball_Manager_Db.Migrations
                         .HasForeignKey("Basketball_Manager_Db.Models.UserDetailsModel", "UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Basketball_Manager_Db.Models.UserModel", b =>
-                {
-                    b.HasOne("Basketball_Manager_Db.Models.SponsorModel", "Sponsor")
-                        .WithMany("Users")
-                        .HasForeignKey("SponsorId");
-
-                    b.HasOne("Basketball_Manager_Db.Models.StadiumModel", "Stadium")
-                        .WithMany("Users")
-                        .HasForeignKey("StadiumId");
-
-                    b.Navigation("Sponsor");
-
-                    b.Navigation("Stadium");
                 });
 
             modelBuilder.Entity("Basketball_Manager_Db.Models.UsersItemModel", b =>
@@ -495,6 +738,43 @@ namespace Basketball_Manager_Db.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Basketball_Manager_Db.Models.UsersPlayerPointsModel", b =>
+                {
+                    b.HasOne("Basketball_Manager_Db.Models.UsersPlayerModel", "UsersPlayer")
+                        .WithOne("UsersPlayerPoints")
+                        .HasForeignKey("Basketball_Manager_Db.Models.UsersPlayerPointsModel", "UserPlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UsersPlayer");
+                });
+
+            modelBuilder.Entity("Basketball_Manager_Db.Models.UsersPlayerStateModel", b =>
+                {
+                    b.HasOne("Basketball_Manager_Db.Models.UsersPlayerModel", "UsersPlayer")
+                        .WithOne("UsersPlayerState")
+                        .HasForeignKey("Basketball_Manager_Db.Models.UsersPlayerStateModel", "UserPlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UsersPlayer");
+                });
+
+            modelBuilder.Entity("Basketball_Manager_Db.Models.UsersSponsorModel", b =>
+                {
+                    b.HasOne("Basketball_Manager_Db.Models.SponsorsModel", "Sponsor")
+                        .WithMany("UserSponsors")
+                        .HasForeignKey("SponsorId");
+
+                    b.HasOne("Basketball_Manager_Db.Models.UserModel", "User")
+                        .WithOne("UserSponsor")
+                        .HasForeignKey("Basketball_Manager_Db.Models.UsersSponsorModel", "UserId");
+
+                    b.Navigation("Sponsor");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Basketball_Manager_Db.Models.ItemModel", b =>
                 {
                     b.Navigation("UsersItems");
@@ -505,23 +785,24 @@ namespace Basketball_Manager_Db.Migrations
                     b.Navigation("UsersPlayers");
                 });
 
-            modelBuilder.Entity("Basketball_Manager_Db.Models.SponsorModel", b =>
+            modelBuilder.Entity("Basketball_Manager_Db.Models.SponsorsModel", b =>
                 {
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Basketball_Manager_Db.Models.StadiumModel", b =>
-                {
-                    b.Navigation("Users");
+                    b.Navigation("UserSponsors");
                 });
 
             modelBuilder.Entity("Basketball_Manager_Db.Models.UserModel", b =>
                 {
+                    b.Navigation("Expenses");
+
                     b.Navigation("Notifications");
+
+                    b.Navigation("Stadium");
 
                     b.Navigation("UserDetail");
 
                     b.Navigation("UserMatchesHistory");
+
+                    b.Navigation("UserSponsor");
 
                     b.Navigation("UsersItems");
 
@@ -531,6 +812,10 @@ namespace Basketball_Manager_Db.Migrations
             modelBuilder.Entity("Basketball_Manager_Db.Models.UsersPlayerModel", b =>
                 {
                     b.Navigation("Auction");
+
+                    b.Navigation("UsersPlayerPoints");
+
+                    b.Navigation("UsersPlayerState");
                 });
 #pragma warning restore 612, 618
         }

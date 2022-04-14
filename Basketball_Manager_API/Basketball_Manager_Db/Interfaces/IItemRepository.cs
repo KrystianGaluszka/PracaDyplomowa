@@ -12,6 +12,9 @@ namespace Basketball_Manager_Db.Interfaces
     {
         Task<IEnumerable<ItemViewModel>> GetAllItems();
         Task<ItemViewModel> GetItem(int id);
-        Task<UsersItemModel> PutUserItem(int count, ItemPutModel itemPutModel);
+        Task<string> PutUserItem(ItemPutModel itemPutModel);
+        Task<string> ExtendContract(ExtendContract extendContract);
+        Task<string> UseItem(UseItemPutModel useItemPutModel);
+        Task<IEnumerable<UsersPlayerViewModel>> OpenChest(OpenChestPutModel openChestPutModel);
     }
 }

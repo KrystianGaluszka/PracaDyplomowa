@@ -13,6 +13,8 @@ namespace Basketball_Manager_Db.MapProfiles
         public UserPlayerProfile()
         {
             CreateMap<UsersPlayerModel, UsersPlayerViewModel>();
+            CreateMap<UsersPlayerPointsModel, UsersPlayerPointsViewModel>();
+            CreateMap<UsersPlayerStateModel, UsersPlayerStateViewModel>();
             AllowNullCollections = true;
         }
     }

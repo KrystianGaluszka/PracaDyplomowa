@@ -11,9 +11,11 @@ namespace Basketball_Manager_Db.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public float Price { get; set; }
-        public float IncomePerViewer { get; set; }
+        public double Price { get; set; }
+        public double IncomePerViewer { get; set; }
         public int SeatsCapacity { get; set; }
-        public virtual IEnumerable<UserModel> Users { get; set; }
+        public int Level { get; set; }
+        public string UserId { get; set; }
+        public virtual UserModel User { get; set; }
     }
 }

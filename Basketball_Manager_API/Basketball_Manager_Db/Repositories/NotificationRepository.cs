@@ -12,6 +12,7 @@ namespace Basketball_Manager_Db.Repositories
     public class NotificationRepository : INotificationRepository
     {
         private readonly ApplicationDbContext _context;
+        protected string basePath = "https://localhost:44326/images/notificationsIcons/";
 
         public NotificationRepository(ApplicationDbContext context)
         {
@@ -25,6 +26,7 @@ namespace Basketball_Manager_Db.Repositories
                 var config = MapperConfig();
                 var mapper = new Mapper(config);
                 var notification = mapper.Map<NotificationPostModel, NotificationModel>(notificationPostModel);
+                notification.IconPath = basePath + notificationPostModel.IconPath;
                 _context.Notifications.Add(notification);
                 await _context.SaveChangesAsync();
 
@@ -44,7 +46,21 @@ namespace Basketball_Manager_Db.Repositories
                 return "success";
             }
             else return "error";
+        }
 
+        public async Task<string> DeleteAllNotification(string userId)
+        {
+            var user = _context.Users.FirstOrDefault(x=> x.Id == userId);
+            var notifications = user.Notifications;
+
+            if (user != null)
+            {
+                _context.Notifications.RemoveRange(notifications);
+                await _context.SaveChangesAsync();
+
+                return "success";
+            }
+            else return "error";
         }
     }
 }

@@ -9,5 +9,7 @@ namespace Basketball_Manager_Db.PutModels
     {
         public string UserId { get; set; }
         public int ItemId { get; set; }
+
+        public int Count { get; set; }
     }
 }

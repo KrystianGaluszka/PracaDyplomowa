@@ -1,0 +1,56 @@
+@import '../../../utils/colors.scss';
+
+.expenses-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    .expense-table-container {
+        // width: 80%;
+        margin: auto;
+
+        .expense-table-head {
+            &--row {
+                .item {
+                    padding: 8px 30px;
+                }
+
+                .count {
+                    padding: 8px 50px;
+                }
+
+                .value {
+                    padding: 8px 25px;
+                }
+
+                .click {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .expense-table-body {
+            height: unset;
+            &--row {
+                .item-icon {
+                    img {
+                        float: left;
+                        border: unset;
+                        border-radius: unset;
+                    }
+                }
+
+                &:hover {
+                    background-color: unset;
+                    cursor: default;
+                }
+            }
+
+            &--cell {
+                text-align: center;
+            }
+            
+        }
+    }
+}

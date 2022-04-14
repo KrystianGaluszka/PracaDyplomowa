@@ -1,0 +1,30 @@
+@import '../../../utils/colors.scss';
+
+.matches-history-container {
+
+    .history-table-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+
+        .history-table-head {
+            .blank {
+                width: 3%;
+            }
+        }
+
+        .history-table-body {
+            &--row {
+                .blank {
+                    width: 3%;
+                }
+                &:hover {
+                    background-color: unset;
+                    cursor: default;
+                }   
+            }
+        }
+    }
+}

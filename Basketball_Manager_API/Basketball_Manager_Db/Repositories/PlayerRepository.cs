@@ -2,6 +2,7 @@
 using Basketball_Manager_Db.DataAccess;
 using Basketball_Manager_Db.Interfaces;
 using Basketball_Manager_Db.Models;
+using Basketball_Manager_Db.PutModels;
 using Basketball_Manager_Db.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -30,6 +31,16 @@ namespace Basketball_Manager_Db.Repositories
             return playersModel;
         }
 
+        public async Task<IEnumerable<UsersPlayerViewModel>> GetAllUsersPlayers()
+        {
+            var usersPlayers = await _context.UsersPlayers.ToListAsync();
+            var mapper = new Mapper(MapperConfig());
+
+            var usersPlayersModel = mapper.Map<List<UsersPlayerModel>, List<UsersPlayerViewModel>>(usersPlayers);
+
+            return usersPlayersModel;
+        }
+
         public async Task<PlayerViewModel> GetPlayer(int id)
         {
             var player = await _context.Players.FirstOrDefaultAsync(x => x.Id == id);
@@ -40,26 +51,90 @@ namespace Basketball_Manager_Db.Repositories
             return playerModel;
         }
 
-        public async Task<UsersPlayerModel> PostAddPlayer(int id, string userId)
+        public async Task<string> EditTeam(EditTeamPutModel editTeamPutModel)
         {
-            var player = await _context.Players.FirstOrDefaultAsync(x => x.Id == id);
+            var squadPlayerIds = editTeamPutModel.SquadIds;
+            var benchPlayerIds = editTeamPutModel.BenchIds;
+            var restPlayerIds = editTeamPutModel.RestPlayersIds;
+            var captainId = 0;
+            int.TryParse(editTeamPutModel.CaptainId, out captainId);
 
-            var userPlayerModel = new UsersPlayerModel
+            foreach (var playerId in squadPlayerIds)
             {
-                Condition = 100,
-                Contract = 35,
-                IsCaptain = false,
-                IsOnAuction = false,
-                Level = player.Level,
-                Salary = player.Salary,
-                UserId = userId,
-                PlayerId = player.Id,
-            };
+                var player = await _context.UsersPlayers.FirstOrDefaultAsync(x => x.Id == playerId);
+                if (player != null)
+                {
+                    player.UsersPlayerState.IsPlaying = true;
+                    player.UsersPlayerState.IsOnBench = false;
+                    await _context.SaveChangesAsync();
+                }
+            }
+            foreach (var playerId in benchPlayerIds)
+            {
+                var player = await _context.UsersPlayers.FirstOrDefaultAsync(x => x.Id == playerId);
+                if (player != null)
+                {
+                    player.UsersPlayerState.IsPlaying = false;
+                    player.UsersPlayerState.IsOnBench = true;
+                    await _context.SaveChangesAsync();
+                }
+            }
+            foreach (var playerId in restPlayerIds)
+            {
+                var player = await _context.UsersPlayers.FirstOrDefaultAsync(x => x.Id == playerId);
+                if (player != null)
+                {
+                    player.UsersPlayerState.IsPlaying = false;
+                    player.UsersPlayerState.IsOnBench = false;
+                    await _context.SaveChangesAsync();
+                }
+            }
 
-            var result = _context.UsersPlayers.Add(userPlayerModel);
+            var newCaptain = await _context.UsersPlayers.FirstOrDefaultAsync(x => x.Id == captainId);
+            if (newCaptain != null)
+            {
+                var oldCaptain = _context.UsersPlayers.FirstOrDefault(x => x.UsersPlayerState.IsCaptain == true);
+                if (oldCaptain != null)
+                {
+                    oldCaptain.UsersPlayerState.IsCaptain = false;
+                }
+                newCaptain.UsersPlayerState.IsCaptain = true;
+                _context.SaveChanges();
+            }
+
+            return "success";
+        }
+
+        public async Task<string> UpdateTraining(UpdateTrainingPutModel updateTraining)
+        {
+            var userPlayers = _context.UsersPlayers.Where(x => x.UserId == updateTraining.UserId);
+
+            foreach (var option in updateTraining.UserPlayersOption)
+            {
+                var player = userPlayers.FirstOrDefault(x => x.Id == option.UserPlayerId);
+
+                switch (option.TrainingType)
+                {
+                    case "None":
+                        player.TrainingType = Training.None;
+                        break;
+                    case "Light":
+                        player.TrainingType = Training.Light;
+                        break;
+                    case "Medium":
+                        player.TrainingType = Training.Medium;
+                        break;
+                    case "Hard":
+                        player.TrainingType = Training.Hard;
+                        break;
+                    case "Rest":
+                        player.TrainingType = Training.Rest;
+                        break;
+                }
+            }
             await _context.SaveChangesAsync();
 
-            return result.Entity;
+            return "success";
         }
     }
 }

@@ -1,6 +1,105 @@
+@import '../../utils/colors.scss';
+
 .homeContainer {
-    color: rgb(0, 0, 0);
-    h1 {
-        color: rgb(102, 0, 0);
-    }
+    .news-info-container {
+        padding: 20px;
+        width: 70%;
+        height: 100%;
+        background-color: $dark-blue-hover;
+        // background-color: $orange-shadow;
+        margin: 0 auto;
+        color: white;
+
+        .info-container {
+            width: 80%;
+            margin: 40px auto;
+            background-color: $dark-blue-shadow;
+            border-radius: 10px;
+            border: 2px solid white;
+        }
+
+        .title {
+            color: $orange;
+            background-color: $dark-blue-active;
+            border-radius: 10px 10px 0 0;
+            padding-bottom: 2px;
+            font-size: 24px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .match-info {
+            .match {
+                display: flex;
+                flex-direction: row;
+                margin-top: 20px;
+                padding-bottom: 10px;
+                column-gap: 5%;
+                font-size: 14px;
+                justify-content: center;
+                .user {
+                    display: flex;
+                    width: 45%;
+                    .crown-icon {
+                        margin: 0 5px 0 5px;
+                        display: flex;
+                        color: #dfc221;
+                        align-items: center;
+                    }
+                }
+
+                .left-user {
+                    justify-content: right;
+                }
+                .right-user {
+                    justify-content: left;
+                }
+                .score {
+                    font-size: 22px;
+                    text-align: center;
+                }
+    
+                .right-score { margin-right: 30px; }
+    
+                .left-score { margin-left: 30px; }
+    
+                .club-name {
+                    display: flex;
+                    text-align: center;
+                    align-items: center;
+                }
+    
+                .dash {
+                    display: flex;
+                    width: 10%;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        }
+
+        .score-info, .level-player-info {
+            .score-container, .level-player-container {
+                padding: 10px;
+
+                .content {
+                    display: flex;
+                    flex-direction: row;
+                    column-gap: 10px;
+
+                    .content-title {
+                        width: 60px;
+                        font-size: 17px;
+                        font-weight: 600;
+                        text-align: right;
+                    }
+
+                    .content-value {
+                        color: white;
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+    }    
 }

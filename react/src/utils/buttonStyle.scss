@@ -1,17 +1,25 @@
-  //Button
+@import 'colors.scss' ;
+ //Button
 .btn-orange {
     font-size: 21px;
     padding: 5px 20px;
     border: 0;
-    background-color: #ff5e00;
+    background-color: $orange;
     color: #fff;
     border-radius: 3px;
     transition: all 250ms ease-in-out;
     cursor: pointer;
     &:hover {
-    background-color: #ff7b2e;
+    background-color: $orange-hover;
     color: #fff;
     }
+
+    &:active {
+        transform: translateY(1px);
+        background-color: $orange-hover;
+        transition: all .1s;
+    }
+
     &:focus {
     outline: none;
     }
@@ -20,17 +28,41 @@
     font-size: 20px;
     padding: 5px 20px;
     border: 0;
-    background-color: #153b5e;
+    background-color: $dark-blue;
     color: #fff;
     border-radius: 3px;
     transition: all 250ms ease-in-out;
     cursor: pointer;
+
     &:hover {
-    background-color: #1a4b79;
+    background-color: $dark-blue-hover;
     color: #fff;
     transition: .5s ease;
     }
+
+    &:active {
+        transform: translateY(1px);
+        background-color: $dark-blue-hover;
+        transition: all .1s;
+    }
+
     &:focus {
     outline: none;
+    }
+}
+
+.orange-disabled {
+    background-color: $orange-disabled;
+
+    &:hover {
+        background-color: $orange-disabled;
+    }
+}
+
+.blue-disabled {
+    background-color: $dark-blue-disabled;
+
+    &:hover {
+        background-color: $dark-blue-disabled;
     }
 }

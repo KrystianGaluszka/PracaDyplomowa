@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "firefox",
+            "type": "chrome",
             "request": "launch",
-            "name": "Launch firefox",
-            "url": "http://localhost:8080",
+            "name": "Launch chrome",
+            "url": "http://localhost:3000/login",
             "webRoot": "${workspaceFolder}"
         }
     ]

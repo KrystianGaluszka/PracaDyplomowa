@@ -2,14 +2,13 @@ import axios from 'axios'
 import react, { useEffect, useState } from 'react'
 import Moment from 'moment'
 import { IUser } from '../../../shared/interfaces'
-import editIcon from '../../../shared/images/edit.png'
 import '../../../utils/buttonStyle.scss'
 import './style.scss'
-import { Alert, Button, Form } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
+import { Alert, Form } from 'react-bootstrap'
 import countryList from 'react-select-country-list'
 
-export const Profile = () => {
+
+export const Profile = ( {userProp}: {userProp: IUser} ) => {
     const [user, setUser] = useState<IUser>()
     const [picPath, setPicPath] = useState('')
     const [isDisable, setIsDisable] = useState(true)
@@ -21,26 +20,23 @@ export const Profile = () => {
     const [imageView, setImageView] = useState('')
     const [image, setImage] = useState<string | Blob>('')
     const [imageName, setImageName] = useState('')
+    const [editIcon, setEditIcon] = useState('')
     const [userEdit, setUserEdit] = useState({
         password: "",
         clubName: "",
         country: "",
     })
-    
-    const navigate = useNavigate()
     let options = new Array()
-
+    
     countryList().getData().map((data: any) => {
         options.push(data)
     })
 
     useEffect(() => {
         const getUser = async () => {
-            await axios.get(`https://localhost:44326/api/User/authuser`)
-                .then(res => {
-                    setUser(res.data)
-                    setPicPath(`https://localhost:44326/images/profilePics/${res.data.profilePicturePath}`)
-                })
+            setUser(userProp)
+            setPicPath(userProp.profilePicturePath)
+            setEditIcon('https://localhost:44326/images/edit.png')
         }
 
         getUser()
@@ -122,7 +118,7 @@ export const Profile = () => {
                 window.setTimeout(() => {
                     window.location.reload()
                     setIsChanged(false)
-                }, 1000)
+                }, 600)
             }
         }
     }
@@ -136,7 +132,7 @@ export const Profile = () => {
                 <div className='name-and-picture'>
                     <div className='picture'>
                             <label className="upload-image">
-                                <img src={ imageView=== '' ? picPath : imageView } />
+                                <img alt="profilePicture" src={ imageView=== '' ? picPath : imageView } />
                                 <input
                                     style={{ display: 'none' }}
                                     type="file"
@@ -145,7 +141,7 @@ export const Profile = () => {
                                     onChange={e => OnImageChange(e)}
                                 />
                                 <div className='middle' >
-                                    <img src={ editIcon }/>
+                                    <img alt='editIcon' src={ editIcon }/>
                                 </div>
                             </label>
                     </div>
@@ -164,7 +160,7 @@ export const Profile = () => {
                             <div className='title'>
                                 <div>Club name </div>
                                 <button className='edit' onClick={e=> {handleOnEdit(e)}}>
-                                    <img src={ editIcon }/>
+                                    <img alt='editIcon' src={ editIcon }/>
                                 </button>
                             </div>
                             {isDisable ? <div className='content'>{ user?.clubName }</div> : 
@@ -172,6 +168,7 @@ export const Profile = () => {
                                 type="text"
                                 placeholder="new club name"
                                 name="clubName"
+                                maxLength={8}
                                 onChange={ e => handleInput(e) } />}
                             
                         </Form.Group>
@@ -185,24 +182,24 @@ export const Profile = () => {
                             <div className='title'>
                                 Country
                                 <button className='edit' onClick={e=> {handleOnEdit1(e)}}>
-                                    <img src={ editIcon }/>
+                                    <img alt='editIcon' src={ editIcon }/>
                                 </button>
                             </div>
                             {isDisable1 ? <div className='content'>{ user?.country }</div> :
-                             <Form.Select
-                             className='edit-select'
-                             name="country"
-                             onChange={ e => selectChangeHandler(e) }
-                             value={selectValue}
-                         >
-                             <option value="" disabled hidden>{user?.country}</option>
-                             {options.map(option => (
-                                 <option key={option.value} value={option.label}>
-                                     {option.label}
-                                 </option>
-                             ))}
-                         </Form.Select>
-                             }
+                                <Form.Select
+                                className='edit-select'
+                                name="country"
+                                onChange={ e => selectChangeHandler(e) }
+                                value={selectValue}
+                            >
+                                <option value="" disabled hidden>{user?.country}</option>
+                                {options.map(option => (
+                                    <option key={option.value} value={option.label}>
+                                        {option.label}
+                                    </option>
+                                ))}
+                            </Form.Select>
+                                }
                             
                         </Form.Group>
                         <hr />
@@ -210,7 +207,7 @@ export const Profile = () => {
                             <div className='title'>
                                 <div>Password </div>
                                 <button className='edit' onClick={e=> {handleOnEdit2(e)}}>
-                                    <img src={ editIcon }/>
+                                    <img alt='editIcon' src={ editIcon }/>
                                 </button>
                             </div>
                             {isDisable2 ? <div className='content'>{ user?.password }</div> : 

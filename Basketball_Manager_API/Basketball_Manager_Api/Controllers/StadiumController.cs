@@ -1,5 +1,6 @@
 ﻿using Basketball_Manager_Db.Interfaces;
 using Basketball_Manager_Db.Models;
+using Basketball_Manager_Db.PutModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,36 +22,30 @@ namespace Basketball_Manager_Api.Controllers
             _stadiumRepository = stadiumRepository;
         }
 
-        // GET: api/<SportsHallController>
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
             return Ok(await _stadiumRepository.GetAllStadiums());
         }
 
-        // GET api/<SportsHallController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(int id)
         {
             return Ok(await _stadiumRepository.GetStadium(id));
         }
 
-        //// POST api/<SportsHallController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
+        [HttpPut("upgrade")]
+        public async Task<IActionResult> UpgrafeStadium(UpgradeStadiumPutModel upgradeStadiumPutModel)
+        {
+            return Ok(await _stadiumRepository.UpgradeStadium(upgradeStadiumPutModel));
+        }
 
-        //// PUT api/<SportsHallController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
+        [HttpPut("namechange")]
+        public async Task<IActionResult> StadiumNameChange(StadiumPutModel stadiumPutModel)
+        {
+            return Ok(await _stadiumRepository.ChangeStadiumName(stadiumPutModel));
+        }
 
-        //// DELETE api/<SportsHallController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+
     }
 }

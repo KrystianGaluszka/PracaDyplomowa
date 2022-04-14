@@ -1,4 +1,5 @@
 ﻿using Basketball_Manager_Db.Models;
+using Basketball_Manager_Db.PutModels;
 using Basketball_Manager_Db.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,11 @@ namespace Basketball_Manager_Db.Interfaces
 {
     public interface ISponsorRepository
     {
-        Task<IEnumerable<SponsorViewModel>> GetAllSponsors();
-        Task<SponsorViewModel> GetSponsor(int id);
+        Task<IEnumerable<UsersSponsorViewModel>> GetAllUserSponsors();
+        Task<UsersSponsorViewModel> GetUserSponsor(int id);
+        Task<IEnumerable<SponsorsViewModel>> GetAllSponsors();
+        Task<SponsorsViewModel> GetSponsor(int id);
+
+        Task<string> ChangeSponsor(ChangeSponsorPutModel changeSponsorPutModel);
     }
 }

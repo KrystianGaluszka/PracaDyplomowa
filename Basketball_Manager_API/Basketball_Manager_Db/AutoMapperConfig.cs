@@ -14,9 +14,10 @@ namespace Basketball_Manager_Db
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<AuctionProfile>();
+                cfg.AddProfile<ExpensesProfile>();
                 cfg.AddProfile<ItemProfile>();
                 cfg.AddProfile<PlayerProfile>();
-                cfg.AddProfile<SponsorProfile>();
+                cfg.AddProfile<UserSponsorProfile>();
                 cfg.AddProfile<StadiumProfile>();
                 cfg.AddProfile<UserDetailsProfile>();
                 cfg.AddProfile<UserItemsProfile>();
@@ -24,6 +25,9 @@ namespace Basketball_Manager_Db
                 cfg.AddProfile<UserPlayerProfile>();
                 cfg.AddProfile<UserProfile>();
                 cfg.AddProfile<NotificationProfile>();
+                cfg.AddProfile<SponsorsProfile>();
+                cfg.AddProfile<RankRequirementProfile>();
+                cfg.AddProfile<BackgroundTaskProfile>();
             });
 
             return config;

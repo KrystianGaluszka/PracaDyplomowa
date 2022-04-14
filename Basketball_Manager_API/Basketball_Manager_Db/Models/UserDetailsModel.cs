@@ -17,5 +17,10 @@ namespace Basketball_Manager_Db.Models
         public int MatchesWon { get; set; }
         public int MatchesDrawn { get; set; }
         public int MatchesLost { get; set; }
+        public string LastSeasonRank { get; set; }
+        public int AllMatchesPlayed { get; set; }
+        public int AllMatchesWon { get; set; }
+        public int AllMatchesDrawn { get; set; }
+        public int AllMatchesLost { get; set; }
     }
 }

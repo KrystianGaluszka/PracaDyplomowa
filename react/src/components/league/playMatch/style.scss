@@ -1,0 +1,126 @@
+@import '../../../utils/colors.scss';
+
+.queue-container {
+    .squad-container {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        
+        width: 80%;
+        max-width: 700px;
+        height: 30%;
+        left: 50%;
+        top: 20%;
+        transform: translate(-50%, -50%);
+        background-color: $dark-blue;
+        border: 2px solid $orange-text;
+        border-radius: 10px;
+        color: white;
+
+        .squad-title {
+            display: flex;
+            justify-content: center;
+            margin-left: 10px;
+            font-size: 30px;
+            color: $orange-hover;
+            div {
+                margin-left: 20px;
+            }
+        }
+
+        .squad-player {
+            margin-left: 10px;
+            margin-top: 8px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            
+            .player-icon {
+                margin-right: 5px;
+                .icon {
+                    width: 25px;
+                    height: 25px;
+                    border: 2px solid;
+                    border-radius: 7px;
+                }
+                
+            }
+
+            .player-name {
+                width: 200px;
+                margin-right: 5px;
+            }
+
+            .player-info {
+
+            }
+        }
+    }
+
+    .play-match-container {
+        position: absolute;
+        display: flex;
+        width: 80%;
+        max-width: 700px;
+        height: 50%;
+        left: 50%;
+        top: 65%;
+        transform: translate(-50%, -50%);
+        background-color: $dark-blue;
+        border-radius: 10px;
+        color: white;
+        border: 2px solid $orange-text;
+    
+        .play-button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+    
+            .play {
+                button {
+                    width: 300px;
+                    height: 100px;
+                    font-size: 32px;
+                }
+            }
+            
+            .cancel {
+                .cancel-btn {
+                    width: 200px;
+                    height: 75px;
+                    font-size: 28px;
+                    background-color: rgb(207, 37, 37);
+                }
+    
+                .timer {
+                    display: flex;
+                    justify-content: center;
+                    font-size: 54px;
+                    margin-bottom: 80px;
+                }
+            }
+            
+        }
+    
+        .queue-alert {
+            top:50%;
+    
+            .alert-header {
+                font-size: 18px;
+            }
+        }
+    }
+}
+
+
+.match-found-modal {
+    .match-found-body {
+        display: flex;
+        flex-direction: column;
+        height: 200px;
+        font-size: 34px;
+        align-items: center;
+        justify-content: center;
+    }
+}

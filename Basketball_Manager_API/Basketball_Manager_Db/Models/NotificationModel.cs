@@ -8,7 +8,6 @@ namespace Basketball_Manager_Db.Models
         public int Id { get; set; }
         public string UserId { get; set; }
         public virtual UserModel User { get; set; }
-        public string Receiver { get; set; }
         public string Topic { get; set; }
         public string Content { get; set; }
         public DateTime CreateDate { get; set; }

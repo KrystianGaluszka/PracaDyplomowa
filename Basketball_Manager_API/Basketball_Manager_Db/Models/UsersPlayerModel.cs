@@ -15,11 +15,24 @@ namespace Basketball_Manager_Db.Models
         public int PlayerId { get; set; }
         public virtual PlayerModel Player { get; set; }
         public virtual AuctionModel Auction { get; set; }
+        public virtual UsersPlayerPointsModel UsersPlayerPoints { get; set; }
+        public virtual UsersPlayerStateModel UsersPlayerState { get; set; }
         public int Level { get; set; }
-        public float Condition { get; set; }
-        public float Salary { get; set; }
+        public int Experience { get; set; }
+        public int RequiredExperience { get; set; }
+        public double Condition { get; set; }
+        public double Salary { get; set; }
         public int Contract { get; set; }
-        public bool IsCaptain { get; set; }
-        public bool IsOnAuction { get; set; }
+        public int Score { get; set; }
+        public Training TrainingType { get; set; }
+    }
+
+    public enum Training
+    {
+        Rest,
+        Light,
+        Medium,
+        Hard,
+        None
     }
 }

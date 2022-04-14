@@ -1,0 +1,197 @@
+@import '../../../utils/colors.scss';
+
+.inventory-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    max-width: 800px;
+    .title {
+        text-align: center;
+        font-size: 36px;
+    }
+    .items-list-container {
+        max-height: calc(100vh - 200px);
+        margin: auto;
+        .item-table {
+            .table-head {
+                .item-head {
+                    .item-head-cell {
+
+                    }
+                    .use-cell {
+                        padding-right: 35px;
+                    }
+                }
+            }
+
+            .items-table-body {
+                height: calc(100vh - 370px);
+                max-height: 435px;
+
+                @media(min-width: 625px) {
+                    max-height: 420px;
+                }
+                @media(min-width: 637px) {
+                    max-height: 405px;
+                }
+                .item-row {
+                    &:hover {
+                        background-color: unset;
+                        cursor: unset;
+                    }
+                    .item-cell {
+                        .use-btn {
+                           font-size: 15px;
+                           padding: 5px 10px; 
+                        }
+                        img {
+                            border:unset;
+                            border-radius: 0;
+                        }
+
+                        button {
+                            width: 55px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .alert {
+        position: absolute;
+        width: 450px;
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        .alert-header {
+            text-align: center;
+        }
+
+        @media(min-width: 992px) {
+            left: calc(50% + 90px);
+        }
+    }
+}
+
+.inventory-chest-modal {
+    color: white;
+    width: 800px;
+
+    .inv-chest-header {
+        background-color: $dark-blue;
+        justify-content: center;
+    }
+    .inv-chest-body {
+        
+
+        .inv-chest-players {
+            display: flex;
+            column-gap: 10px;
+            align-items: center;
+            height: 350px;
+
+            .player-card {
+                width: 33%;
+                height: 250px;
+                padding: 10px;
+                border-radius: 10px;
+                background-color: $dark-blue-shadow;
+                .card-name {
+                    text-align: center;
+                    color: $orange-text;
+                    font-size: 18px;
+                    font-weight: 800;
+                    margin-bottom: 20px;
+                    height: 55px;
+                }
+
+                .card-content {
+                    .content {
+                        text-align: center;
+                        .text {
+                            font-size: 17px;
+                            color: $orange-text;
+                        }
+
+                        .value {
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+        }
+
+        .inv-chest-click {
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
+
+.inventory-item-modal {
+    color: white;
+    display: flex;
+    height: 600px;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%) ;
+    transform: translate(-50%, -50%) !important;
+
+    @media(min-width: 992px) {
+        left: calc(50% + 90px) !important;
+    }
+    
+    .inv-item-header {
+        background-color: $dark-blue;
+        .inv-item--title {
+            margin: auto;
+        }
+    }
+    .inv-item-body {
+        max-height: 600px;
+        .body-container {
+            overflow: auto;
+            .inv-item-table {
+                position: relative;
+                max-height: 450px;
+                .table {
+                    .table-body {
+                        .table-body--row {
+                            .table-body--cell {
+                                color: white;
+                                img {
+                                    width: 30px;
+                                    height: 30px;
+                                    border-radius: 10px;
+                                }
+
+                                .player-radio {
+                                    color: white;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .use-button {
+                display: flex;
+                justify-content: center;
+                position: absolute;
+                bottom: 5px;
+                left: 50%;
+                transform: translate(-50%);
+            }
+        }
+
+        .no-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 500px;
+            font-size: 24px;
+        } 
+    }
+}

@@ -7,5 +7,6 @@ namespace Basketball_Manager_Db.Interfaces
     {
         Task<string> PostCreateNotification(NotificationPostModel notificationPostModel);
         Task<string> DeleteNotification(int id);
+        Task<string> DeleteAllNotification(string userId);
     }
 }

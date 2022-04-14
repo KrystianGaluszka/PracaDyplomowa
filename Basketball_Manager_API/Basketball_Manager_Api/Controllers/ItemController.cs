@@ -23,37 +23,40 @@ namespace Basketball_Manager_Api.Controllers
             _itemRepository = itemRepository;
         }
 
-        // GET: api/<ItemController>
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
             return Ok(await _itemRepository.GetAllItems());
         }
 
-        // GET api/<ItemController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(int id)
         {
             return Ok(await _itemRepository.GetItem(id));
         }
 
-        // POST api/<ItemController>
-        [HttpPut]
-        public async Task<ActionResult> PostUserItem(int count, ItemPutModel itemPutModel)
+        [HttpPut("additem")]
+        public async Task<ActionResult> PostUserItem(ItemPutModel itemPutModel)
         {
-            return Ok(await _itemRepository.PutUserItem(count, itemPutModel));
+            return Ok(await _itemRepository.PutUserItem(itemPutModel));
         }
 
-        //// PUT api/<ItemController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
+        [HttpPut("extendcontract")]
+        public async Task<ActionResult> ExtendContract(ExtendContract extendContract)
+        {
+            return Ok(await _itemRepository.ExtendContract(extendContract));
+        }
 
-        //// DELETE api/<ItemController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        [HttpPut("useitem")]
+        public async Task<ActionResult> UseItem(UseItemPutModel useItemPutModel)
+        {
+            return Ok(await _itemRepository.UseItem(useItemPutModel));
+        }
+
+        [HttpPut("openchest")]
+        public async Task<ActionResult> OpenChest(OpenChestPutModel openChestPutModel)
+        {
+            return Ok(await _itemRepository.OpenChest(openChestPutModel));
+        }
     }
 }

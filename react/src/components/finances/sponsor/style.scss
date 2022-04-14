@@ -1,0 +1,227 @@
+@import '../../../utils/colors.scss';
+
+.sponsor-container {
+    .current-sponsor-container {
+        width: 80%;
+        margin: 50px auto;
+        padding: 10px;
+        background-color: $dark-blue;
+        color: white;
+        border-radius: 15px;
+
+        .sponsor-name {
+            padding: 5px;
+            background-color: $orange;
+            border-radius: 5px;
+            font-size: 18px;
+            font-style: italic;
+            .current-sponsor-title {
+                font-weight: 500;
+                font-style: normal;
+            }
+        }
+
+        .sponsor-table {
+            .table {
+                color:white;
+                .sponsor-table-head  {
+                    &--row {
+                    }
+
+                    &--cell {
+                        color:white;
+                    }
+                }
+
+                .sponsor-table-body {
+                    &--row {
+
+                    }
+
+                    &--cell {
+                        color:white;
+                    }
+                }
+            }
+        }
+    }
+
+    .no-sponsor-container {
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .no-sponsor {
+            height: 75px;
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    .other-sponsors {
+        width: 80%;
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 10px 10px 30px 10px;
+        background-color: $dark-blue;
+        color: white;
+        border-radius: 8px;
+        height: 350px;
+
+        .table-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 28px;
+        }
+        .sponsors-table {
+            display: flex;
+            margin-left: 100px;
+            height: 270px;
+            max-height: 270px;
+            overflow-x: auto;
+            overflow-y: auto;
+
+            .titles {
+                height: 150px;
+                float: left;
+                position: absolute;
+                left: 0;
+                top: 138px;
+                text-align: right;
+                .match-prize {
+                    padding: 5px;
+                }
+
+                .win-prize {
+                    padding: 5px;
+                }
+
+                .title-prize {
+                    padding: 5px;
+                }
+
+                .required-level {
+                    padding: 5px;
+                }
+            }
+
+            .sponsor-container {
+                min-width: 100px;
+                width: 100px;
+                max-width: 100px;
+                background-color: $orange-shadow;
+                margin: 0 10px;
+                padding: 0;
+                border-radius: 10px;
+                .name {
+                    text-align: center;
+                    font-size: 20px;
+                    padding: 5px;
+                    margin-bottom: 20px;
+                    background-color: $orange;
+                    width: 100%;
+                    border-radius: 10px 10px 0 0 ;
+                }
+
+                .match-prize {
+                    padding: 5px;
+                    text-align: center;
+                    border-top: 1px solid white;
+                    border-bottom: solid 1px white;
+                }
+
+                .win-prize {
+                    padding: 5px;
+                    text-align: center;
+                    border-bottom: solid 1px white;
+                }
+
+                .title-prize {
+                    padding: 5px;
+                    text-align: center;
+                    border-bottom: solid 1px white;
+                }
+
+                .required-level {
+                    padding: 5px;
+                    text-align: center;
+                    border-bottom: solid 1px white;
+                }
+
+                .choose-button {
+                    display: flex;
+                    justify-content: center;
+                    padding: 5px;
+                    button {
+                        font-size: 14px;
+                        padding: 5px 10px;
+                        margin-top: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+    .info-icon {
+        position: absolute;
+        top: 2px;
+        left: 6px;
+        :hover {
+            cursor: pointer;
+        }
+    }
+
+    .alert {
+        top:40%;
+    }
+
+    @media(min-width: 992px) {
+        .current-sponsor-container {
+            width: 65%;
+        }
+
+        .other-sponsors {
+            width: 65%;
+        }
+    }
+
+    @media(min-width: 1600px) {
+        .current-sponsor-container {
+            width: 50%;
+        }
+
+        .other-sponsors {
+            width: 50%;
+        }
+    }
+}
+
+.sponsor-info-modal {
+    width: 250px;
+    // border: 3px solid $dark-blue;
+    // border-radius: 0.6rem;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    .modal-content {
+        border:unset;
+        border-radius: 0.4rem;
+        .sponsor-modal-header {
+            color: white;
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .sponsor-modal-body {
+            color: white;
+            font-size: 15px;
+        }
+    }
+}

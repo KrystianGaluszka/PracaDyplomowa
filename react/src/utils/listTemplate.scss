@@ -1,0 +1,56 @@
+@import 'colors.scss';
+
+.table-container {
+    padding: 10px;
+    background-color: $dark-blue;
+    border-radius: 10px;
+    position: relative;
+    max-height: calc(100vh - 250px);
+    
+    .table {
+        color: $orange-hover;
+        margin-bottom: 0;
+        overflow: auto;
+        .table-head {
+            &--row {
+                .click {
+                    cursor: pointer;
+                }
+            }
+
+            &--cell {
+                color: $orange-hover;
+                border-bottom: unset;
+            }
+            
+        }
+
+        .table-body {
+            display: block;
+            max-height: calc(100vh - 320px);
+            overflow: auto;
+            &--row {
+                &:hover {
+                    border-radius: 5px;
+                    background-color: $dark-blue-hover;
+                    cursor: pointer;
+                }
+            }
+
+            &--cell {
+                color: white;
+                img {
+                    width: 33px;
+                    height: 33px;
+                    border: 3px solid;
+                    border-radius: 10px;
+                }
+            }
+        }
+        thead, tbody tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;/* even columns width , fix width of table too*/
+        }
+    }
+}

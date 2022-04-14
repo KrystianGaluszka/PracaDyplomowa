@@ -1,5 +1,6 @@
 ﻿using Basketball_Manager_Db.Interfaces;
 using Basketball_Manager_Db.Models;
+using Basketball_Manager_Db.PutModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,42 +22,34 @@ namespace Basketball_Manager_Api.Controllers
             _playerRepository = playerRepository;
         }
 
-        // GET: api/<PlayerController>
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
             return Ok(await _playerRepository.GetAllPlayers());
         }
 
-        // GET api/<PlayerController>/5
+        [HttpGet("usersplayers")]
+        public async Task<ActionResult> GetAllUsersPlayers()
+        {
+            return Ok(await _playerRepository.GetAllUsersPlayers());
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(int id)
         {
             return Ok(await _playerRepository.GetPlayer(id));
         }
 
-        [HttpPost("addPlayer")]
-        public async Task<ActionResult> AddPlayer(int id, string userId)
+        [HttpPut("editSquad")]
+        public async Task<ActionResult> EditSquad(EditTeamPutModel editTeamPutModel)
         {
-            return Ok(await _playerRepository.PostAddPlayer(id, userId));
+            return Ok(await _playerRepository.EditTeam(editTeamPutModel));
         }
 
-        //// POST api/<PlayerController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        //// PUT api/<PlayerController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/<PlayerController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        [HttpPut("updatetraining")]
+        public async Task<ActionResult> UpdateTraining(UpdateTrainingPutModel updateTraining)
+        {
+            return Ok(await _playerRepository.UpdateTraining(updateTraining));
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Basketball_Manager_Db.MapProfiles
     {
         public UserMatchesHistoryProfile()
         {
-            CreateMap<UsersMatchHistoryModel, UsersMatchHisotryViewModel>();
+            CreateMap<UsersMatchHistoryModel, UsersMatchHistoryViewModel>();
             AllowNullCollections = true;
         }
     }

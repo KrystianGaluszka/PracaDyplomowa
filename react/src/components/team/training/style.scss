@@ -1,0 +1,139 @@
+@import '../../../utils/colors.scss';
+
+.training-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 85%;
+    max-height: 85%;
+    left: 50%;
+    top: 47%;
+    transform: translate(-50%, -50%);
+    background-color: $dark-blue;
+    border-radius: 10px;
+    color: white;
+
+    .training-table-container {
+        .training-table {
+            .training-table-head {
+                &--row {
+                    .name {
+                        width: 25%;
+                    }
+                    .training {
+                        width: 56%;
+                    }
+                }
+
+                &--cell {
+                }
+            }
+
+            .training-table-body {
+                &--row {
+                    .name {
+                        width: 25%;
+                    }
+
+                    .icon {
+                        .icon-container {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                        }
+
+                        svg {
+                            width: 25px;
+                            height: 25px;
+                        }
+
+                        .light {
+                            color: #20ca20;
+                        }
+
+                        .medium {
+                            color: #ffff26;
+                        }
+
+                        .hard {
+                            color: #ff9810;
+                        }
+
+                        .rest {
+                            color: #19f8c8
+                        }
+
+                        .none {
+                            color: #c21313;
+                            width: 20px;
+                            height: 20px;
+                        }
+                    }
+
+                    &:hover {
+                        background-color: unset;
+                        cursor: default;
+                    }
+                }
+
+                &--cell {
+                    .player-radio {
+                        padding: 3px;
+                        width: 40px;
+                        height: 40px;
+                    }
+
+                    .Mui-checked {
+                        background-color: $dark-blue-checked;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer {
+        position: relative;
+        display: flex;
+        height: 100%;
+
+        .info-icon {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .save {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+        }
+    }
+
+    .training-alert {
+        top: 46%;
+        .alert-header {
+            font-size: 18px;
+        }
+    }
+}
+
+.training-info-modal {
+    width: 300px;
+    color: white;
+
+    .modal-content {
+        border:unset;
+        border-radius: 0.4rem;
+        .training-modal-header {
+            color: white;
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .training-modal-body {
+            color: white;
+            font-size: 15px;
+        }
+    }
+}

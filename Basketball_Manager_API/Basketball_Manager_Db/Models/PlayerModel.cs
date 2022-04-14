@@ -16,21 +16,23 @@ namespace Basketball_Manager_Db.Models
         public string Country { get; set; }
         public string Club { get; set; }
         public string League { get; set; }
-        public float Weight { get; set; }
-        public float Height { get; set; }
+        public double Weight { get; set; }
+        public double Height { get; set; }
         public PlayerRarity Rarity{ get; set; }
         public int Level { get; set; }
-        public float Salary { get; set; }
+        public string Position { get; set; }
+        public double Salary { get; set; }
+        public string PicturePath { get; set; }
         public virtual IEnumerable<UsersPlayerModel> UsersPlayers { get; set; }
     }
 
-    public enum PlayerRarity {
+    public enum PlayerRarity 
+    {
         Common,
         Uncommon,
         Rare,
         Epic,
         Masterwork,
         Legendary
-
     }
 }

@@ -14,10 +14,12 @@ namespace Basketball_Manager_Db.ViewModel
         public string Country { get; set; }
         public string Club { get; set; }
         public string League { get; set; }
-        public float Weight { get; set; }
-        public float Height { get; set; }
+        public double Weight { get; set; }
+        public double Height { get; set; }
         public string Rarity { get; set; }
         public int Level { get; set; }
-        public float Salary { get; set; }
+        public string Position { get; set; }
+        public double Salary { get; set; }
+        public string PicturePath { get; set; }
     }
 }

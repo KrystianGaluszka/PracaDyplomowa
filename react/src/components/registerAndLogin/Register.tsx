@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Form, Col, Button } from 'react-bootstrap'
+import { Form, Col } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import countryList from 'react-select-country-list'
 import logoImg from '../../logo/logoMini.png'
@@ -8,27 +8,6 @@ import { IUser } from '../../shared/interfaces'
 import '../../utils/buttonStyle.scss'
 
 export const Register = () => {
-    const [emails, setEmails] = useState<string[]>([])
-    const [selectValue, setSelectValue] = useState('')
-    let options = new Array()
-
-    useEffect(() => {
-        const getEmail = async () => {
-            await axios.get<IUser[]>('https://localhost:44326/api/User')
-            .then(res => {
-                res.data.map((user: IUser) => {
-                    setEmails(email => [...email, user.email])
-                })
-            })
-        }
-        
-        getEmail()
-    }, [])
-
-    countryList().getData().map((data: any) => {
-        options.push(data)
-    })
-
     const [userRegistration, setUserRegistration] = useState({
         name: "",
         email: "",
@@ -51,10 +30,35 @@ export const Register = () => {
     const [birthDateError, setBirthDateError] = useState("")
     const [clubNameError, setClubNameError] = useState("")
     const [countryError, setCountryError] = useState("")
-    
-    let isValidate = true
-
+    const [emails, setEmails] = useState<string[]>([])
+    const [selectValue, setSelectValue] = useState('')
     const navigate = useNavigate()
+    const cookie = document.cookie.indexOf('jwt') // działa
+
+    let options = new Array()
+    let isValidate = true
+    
+    useEffect(() => {
+        const getEmail = async () => {
+            if (cookie !== -1) {
+                navigate('/home')
+                window.location.reload()
+            } else {
+                await axios.get<IUser[]>('https://localhost:44326/api/User')
+                .then(res => {
+                    res.data.map((user: IUser) => {
+                        setEmails(email => [...email, user.email])
+                    })
+                })
+            }
+        }
+        
+        getEmail()
+    }, [])
+
+    countryList().getData().map((data: any) => {
+        options.push(data)
+    })
 
     const selectChangeHandler = (event: any) => {
         const value = event.currentTarget.value 
@@ -176,7 +180,6 @@ export const Register = () => {
 
     return (
         <div className="base-container" >
-            <div className="header">Register</div>
             <div className="content">
                 <div className="image">
                     <img src={ logoImg } />
@@ -249,6 +252,7 @@ export const Register = () => {
                             isInvalid={!!clubNameError}
                             type="text"
                             placeholder="Club name"
+                            maxLength={8}
                             name="clubName"
                             onChange={ e => handleInput(e) }
                         />
