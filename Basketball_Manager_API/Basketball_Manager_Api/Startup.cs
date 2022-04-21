@@ -122,7 +122,13 @@ namespace Basketball_Manager_Api
             recurringJobManager.AddOrUpdate(
                 "Run_every_day",
                 () => serviceProvider.GetService<IRecurringJobs>().TrainingRewards(),
-                Cron.Daily());
+                Cron.Daily()
+            );
+            recurringJobManager.AddOrUpdate(
+                "Run_every_week",
+                () => serviceProvider.GetService<IRecurringJobs>().SubtractContracts(),
+                Cron.Weekly()
+                );
         }
     }
 }

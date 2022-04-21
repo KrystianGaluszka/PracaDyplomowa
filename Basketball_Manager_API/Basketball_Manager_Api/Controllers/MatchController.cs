@@ -48,7 +48,9 @@ namespace Basketball_Manager_Api.Controllers
             opponent.IsAccepted = false;
             opponent.IsPlaying = true;
 
-            var jobId = BackgroundJob.Enqueue<MatchGame>(x => x.Match(CancellationToken.None, matchPutModel.UserId, matchPutModel.OpponentId));
+            var jobId = BackgroundJob.Enqueue<MatchGame>(x => 
+                x.Match(CancellationToken.None, matchPutModel.UserId, matchPutModel.OpponentId)
+            );
 
             _context.BackgroundTasks.Add(new BackgroundTaskModel()
             {
