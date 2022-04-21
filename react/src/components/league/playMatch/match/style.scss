@@ -24,7 +24,7 @@
         justify-content: center;
         .user {
             display: flex;
-
+            width: 45%;
             .crown-icon {
                 margin: 0 5px 0 5px;
                 display: flex;
@@ -37,9 +37,16 @@
             text-align: center;
         }
 
-        .right-score { margin-right: 100px; }
+        .left-user {
+            justify-content: right;
+        }
+        .right-user {
+            justify-content: left;
+        }
 
-        .left-score { margin-left: 100px; }
+        .right-score { margin-right: 50px; }
+
+        .left-score { margin-left: 50px; }
 
         .club-name {
             display: flex;
@@ -49,8 +56,9 @@
 
         .dash {
             display: flex;
-            text-align: center;
+            justify-content: center;
             align-items: center;
+            width: 10%;
         }
     }
 

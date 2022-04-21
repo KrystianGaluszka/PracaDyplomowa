@@ -32,15 +32,12 @@ export const Login = () => {
         await axios.post("https://localhost:44326/api/User/login", data)
             .then(res => {
                 response = res.data
-                console.log(res.data)
             })
             .catch(error => {
                 apiError = error
-                console.log('ERROR')
                 console.log(error)
             })
             
-            console.log(apiError)
         if (apiError !== undefined) {
             navigate('/login')
             setIsChanged(true)

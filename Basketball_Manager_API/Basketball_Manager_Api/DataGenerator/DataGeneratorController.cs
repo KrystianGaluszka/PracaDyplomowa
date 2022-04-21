@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Faker;
 
-namespace Basketball_Manager_Api.Controllers
+namespace Basketball_Manager_Api.DataGenerator
 {
     [Route("api/DataGenerator")]
     [ApiController]
@@ -94,11 +94,9 @@ namespace Basketball_Manager_Api.Controllers
                         {
                             Name = Faker.Name.First(),
                             Surname = Faker.Name.Last(),
-                            Club = Faker.Company.Name(),
                             Country = Faker.Country.Name(),
                             Height = 150 + j * 2,
                             Rarity = rarity,
-                            League = Faker.Address.CityPrefix(),
                             Level = Faker.RandomNumber.Next(1, 99),
                             Salary = Faker.RandomNumber.Next(1000, 1000000),
                             Weight = 50 + j * 2,
@@ -310,6 +308,8 @@ namespace Basketball_Manager_Api.Controllers
                     UsersPlayerState = playerState,
                     UsersPlayerPoints  = playerPoints,
                     TrainingType = Training.None,
+                    Club = "Fc Łazy",
+                    League = "Bronze I"
                 });
             }
 

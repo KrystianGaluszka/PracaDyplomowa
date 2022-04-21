@@ -10,9 +10,7 @@ namespace Basketball_Manager_Db.Interfaces
 {
     public interface IPlayerRepository
     {
-        Task<IEnumerable<PlayerViewModel>> GetAllPlayers();
         Task<IEnumerable<UsersPlayerViewModel>> GetAllUsersPlayers();
-        Task<PlayerViewModel> GetPlayer(int id);
         Task<string> EditTeam(EditTeamPutModel editTeamPutModel);
         Task<string> UpdateTraining(UpdateTrainingPutModel updateTraining);
     }

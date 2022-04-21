@@ -13,11 +13,8 @@ namespace Basketball_Manager_Db.Interfaces
 {
     public interface IAuctionRepository
     {
-        Task<IEnumerable<AuctionViewModel>> GetAllAuctions();
-        Task<AuctionViewModel> GetAuction(int id);
-        Task<string> PostAuction(AuctionPostModel auctionPostModel);
+        Task<int> PostAuction(AuctionPostModel auctionPostModel);
         Task<string> BidPlayer(BidFromAuctionPutModel bidFromAuction);
-        Task<string> BidEnd(BidFromAuctionPutModel bidFromAuction);
         Task<string> BuyPlayer(BuyFromAuctionPutModel buyFromAuction);
         Task<string> DeleteAfterPurchase(int auctionId);
         Task<string> QuickSell(QuickSellDeleteModel quickSellDeleteModel);

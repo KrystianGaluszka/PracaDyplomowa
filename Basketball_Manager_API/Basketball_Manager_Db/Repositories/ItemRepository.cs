@@ -22,25 +22,6 @@ namespace Basketball_Manager_Db.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<ItemViewModel>> GetAllItems()
-        {
-            var items = await _context.Items.ToListAsync();
-            var mapper = new Mapper(MapperConfig());
-
-            var itemModel = mapper.Map<List<ItemModel>, List<ItemViewModel>>(items);
-
-            return itemModel;
-        }
-
-        public async Task<ItemViewModel> GetItem(int id)
-        {
-            var item = await _context.Items.FirstOrDefaultAsync(x => x.Id == id);
-            var mapper = new Mapper(MapperConfig());
-
-            var itemModel = mapper.Map<ItemModel, ItemViewModel>(item);
-
-            return itemModel;
-        }
         public async Task<string> PutUserItem(ItemPutModel itemPutModel)
         {
             var item = _context.Items.FirstOrDefault(x => x.Id == itemPutModel.ItemId);
@@ -117,6 +98,7 @@ namespace Basketball_Manager_Db.Repositories
 
         public async Task<IEnumerable<UsersPlayerViewModel>> OpenChest(OpenChestPutModel openChestPutModel)
         {
+            var user = _context.Users.FirstOrDefault(x => x.Id == openChestPutModel.UserId);
             var userItem = _context.UsersItems.FirstOrDefault(x => x.Id == openChestPutModel.UserItemId);
             var playersDropped = new List<UsersPlayerModel>();
             var itemName = userItem.Item.Name;
@@ -155,7 +137,17 @@ namespace Basketball_Manager_Db.Repositories
                         if (i == 0) player = legendaryPlayers.Skip(rnd.Next(legendaryPlayers.Count() - 1)).Take(1).First();
                         break;
                 }
-                
+
+                string GetRank(int rankPoints)
+                {
+                    if (rankPoints >= 1 && rankPoints <= 600) return "Bronze";
+                    else if (rankPoints >= 601 && rankPoints <= 1200) return "Silver";
+                    else if (rankPoints >= 1201 && rankPoints <= 1800) return "Gold";
+                    else if (rankPoints >= 1801 && rankPoints <= 2400) return "Platinum";
+                    else if (rankPoints >= 2401 && rankPoints <= 3600) return "Diamond";
+                    else if (rankPoints >= 3001 && rankPoints <= 3200) return "Champion";
+                    else return "Grand Champion";
+                }
 
                 var droppedPlayer = new UsersPlayerModel
                 {
@@ -170,7 +162,9 @@ namespace Basketball_Manager_Db.Repositories
                     TrainingType = Training.None,
                     UserId = openChestPutModel.UserId,
                     UsersPlayerPoints = getPoints(),
-                    UsersPlayerState = getState()
+                    UsersPlayerState = getState(),
+                    Club = user.ClubName,
+                    League = GetRank(user.UserDetail.RankPoints)
                 };
 
                 playersDropped.Add(droppedPlayer);

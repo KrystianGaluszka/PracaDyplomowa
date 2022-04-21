@@ -6,6 +6,7 @@ using Basketball_Manager_Db.Models;
 using Basketball_Manager_Db.PostModels;
 using Basketball_Manager_Db.PutModels;
 using Basketball_Manager_Db.ViewModel;
+using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -24,26 +25,7 @@ namespace Basketball_Manager_Db.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<AuctionViewModel>> GetAllAuctions()
-        {
-            var auctions = await _context.Auctions.ToListAsync();
-            var mapper = new Mapper(MapperConfig());
-
-            var auctionsModel = mapper.Map<List<AuctionModel>, List<AuctionViewModel>>(auctions);
-
-            return auctionsModel;
-        }
-
-        public async Task<AuctionViewModel> GetAuction(int id)
-        {
-            var auction = await _context.Auctions.FirstOrDefaultAsync(x => x.Id == id);
-            var mapper = new Mapper(MapperConfig());
-
-            var auctionModel = mapper.Map<AuctionModel, AuctionViewModel>(auction);
-
-            return auctionModel;
-        }
-        public async Task<string> PostAuction(AuctionPostModel auctionPostModel)
+        public async Task<int> PostAuction(AuctionPostModel auctionPostModel)
         {
             var player = _context.UsersPlayers.Where(x => x.Id == auctionPostModel.UserPlayerId).FirstOrDefault();
             var auctionModel = new AuctionModel 
@@ -52,6 +34,8 @@ namespace Basketball_Manager_Db.Repositories
                 Price = auctionPostModel.Price,
                 UserId = auctionPostModel.UserId,
                 UserPlayerId = auctionPostModel.UserPlayerId,
+                Hours = 24,
+                Minutes = 0,
             };
             player.UsersPlayerState.IsOnAuction = true;
             player.UsersPlayerState.IsPlaying = false;
@@ -61,7 +45,9 @@ namespace Basketball_Manager_Db.Repositories
             _context.Auctions.Add(auctionModel);
             await _context.SaveChangesAsync();
 
-            return "success";
+            var auctionId = _context.Auctions.Where(x => x.UserId == auctionModel.UserId).OrderBy(x => x.Id).LastOrDefault().Id;
+
+            return auctionId;
         }
 
         public async Task<string> BidPlayer(BidFromAuctionPutModel bidFromAuction)
@@ -80,40 +66,23 @@ namespace Basketball_Manager_Db.Repositories
             else return "error";
         }
 
-        public async Task<string> BidEnd(BidFromAuctionPutModel bidFromAuction)
-        {
-            var auction = _context.Auctions.FirstOrDefault(x => x.Id == bidFromAuction.AuctionId);
-            var buyUser = _context.Users.FirstOrDefault(x => x.Id == bidFromAuction.UserId);
-            if (auction != null && buyUser != null)
-            {
-                var sellUser = _context.Users.FirstOrDefault(x => x.Id == auction.UserId);
-                var boughtPlayer = _context.UsersPlayers.FirstOrDefault(x => x.Id == auction.UserPlayerId);
-                if (boughtPlayer != null && sellUser != null)
-                {
-                    sellUser.Money += auction.Bid;
-                    buyUser.Money -= auction.Bid;
-                    boughtPlayer.UserId = buyUser.Id;
-                    boughtPlayer.Contract = 25;
-                    boughtPlayer.UsersPlayerState.IsCaptain = false;
-                    boughtPlayer.UsersPlayerState.IsInjured = false;
-                    boughtPlayer.UsersPlayerState.IsOnAuction = false;
-                    boughtPlayer.UsersPlayerState.IsOnBench = false;
-                    boughtPlayer.UsersPlayerState.IsPlaying = false;
-                    boughtPlayer.UsersPlayerState.IsBoosted = false;
-                    boughtPlayer.Condition = 100;
-
-                    await _context.SaveChangesAsync();
-
-                    return "success";
-                }
-                else return "error";
-            }
-            else return "error";
-        }
         public async Task<string> BuyPlayer(BuyFromAuctionPutModel buyFromAuction)
         {
             var auction = _context.Auctions.FirstOrDefault(x => x.Id == buyFromAuction.AuctionId);
+            var bgTask = _context.BackgroundTasks.FirstOrDefault(x => x.TaskName == $"{auction.UserPlayerId}-{auction.UserId}-auction");
             var buyUser = _context.Users.FirstOrDefault(x => x.Id == buyFromAuction.UserId);
+
+            string GetRank(int rankPoints)
+            {
+                if (rankPoints >= 1 && rankPoints <= 600) return "Bronze";
+                else if (rankPoints >= 601 && rankPoints <= 1200) return "Silver";
+                else if (rankPoints >= 1201 && rankPoints <= 1800) return "Gold";
+                else if (rankPoints >= 1801 && rankPoints <= 2400) return "Platinum";
+                else if (rankPoints >= 2401 && rankPoints <= 3600) return "Diamond";
+                else if (rankPoints >= 3001 && rankPoints <= 3200) return "Champion";
+                else return "Grand Champion";
+            }
+
             if (auction != null && buyUser != null)
             {
                 var sellUser = _context.Users.FirstOrDefault(x =>x.Id == auction.UserId);
@@ -131,6 +100,11 @@ namespace Basketball_Manager_Db.Repositories
                     boughtPlayer.UsersPlayerState.IsPlaying = false;
                     boughtPlayer.UsersPlayerState.IsBoosted = false;
                     boughtPlayer.Condition = 100;
+                    boughtPlayer.League = GetRank(buyUser.UserDetail.RankPoints);
+                    boughtPlayer.Club = buyUser.ClubName;
+
+                    BackgroundJob.Delete(bgTask.JobId);
+                    _context.BackgroundTasks.Remove(bgTask);
 
                     await _context.SaveChangesAsync();
 

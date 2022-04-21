@@ -151,6 +151,8 @@ export interface IAuction {
     usersPlayer: IUsersPlayer,
     price: number,
     bid: number,
+    hours: number,
+    minutes: number,
 }
 
 export interface INotification {

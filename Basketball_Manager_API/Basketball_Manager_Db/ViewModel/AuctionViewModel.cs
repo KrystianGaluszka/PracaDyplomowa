@@ -13,5 +13,7 @@ namespace Basketball_Manager_Db.ViewModel
         public double Price { get; set; }
         public double Bid { get; set; }
         public string BidUserId { get; set; }
+        public int Hours { get; set; }
+        public int Minutes { get; set; }
     }
 }

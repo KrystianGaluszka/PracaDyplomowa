@@ -1,12 +1,16 @@
-﻿using Basketball_Manager_Db.DeleteModels;
+﻿using Basketball_Manager_Api.HangfireBackgroundService;
+using Basketball_Manager_Db.DataAccess;
+using Basketball_Manager_Db.DeleteModels;
 using Basketball_Manager_Db.Interfaces;
 using Basketball_Manager_Db.Models;
 using Basketball_Manager_Db.PostModels;
 using Basketball_Manager_Db.PutModels;
+using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,38 +22,33 @@ namespace Basketball_Manager_Api.Controllers
     public class AuctionController : ControllerBase
     {
         private readonly IAuctionRepository _auctionRepository;
+        private readonly ApplicationDbContext _context;
 
-        public AuctionController(IAuctionRepository auctionRepository)
+        public AuctionController(IAuctionRepository auctionRepository, ApplicationDbContext context)
         {
             _auctionRepository = auctionRepository;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> GetAll()
-        {
-            return Ok(await _auctionRepository.GetAllAuctions());
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult> Get(int id)
-        {
-            return Ok(await _auctionRepository.GetAuction(id));
+            _context = context;
         }
 
         [HttpPost("add")]
         public async Task<ActionResult> Post(AuctionPostModel auctionPostModel)
         {
-            return Ok(await _auctionRepository.PostAuction(auctionPostModel));
+
+            var auctionId = await _auctionRepository.PostAuction(auctionPostModel);
+            var jobId = BackgroundJob.Enqueue<AuctionRemainingTime>(x => x.CountDown(CancellationToken.None, auctionId));
+            _context.BackgroundTasks.Add(new BackgroundTaskModel
+            {
+                IsStarted = true,
+                JobId = jobId,
+                TaskName = $"{auctionPostModel.UserPlayerId}-{auctionPostModel.UserId}-auction",
+                UserId = auctionPostModel.UserId,
+            });
+
+            return Ok("success");
         }
 
         [HttpPut("bid")]
         public async Task<ActionResult> BidPlayer(BidFromAuctionPutModel bidFromAuction)
-        {
-            return Ok(await _auctionRepository.BidPlayer(bidFromAuction));
-        }
-
-        [HttpPut("bidend")]
-        public async Task<ActionResult> BidEnd(BidFromAuctionPutModel bidFromAuction)
         {
             return Ok(await _auctionRepository.BidPlayer(bidFromAuction));
         }

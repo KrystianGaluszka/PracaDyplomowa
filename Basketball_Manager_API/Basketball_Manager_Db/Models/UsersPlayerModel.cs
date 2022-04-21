@@ -17,6 +17,8 @@ namespace Basketball_Manager_Db.Models
         public virtual AuctionModel Auction { get; set; }
         public virtual UsersPlayerPointsModel UsersPlayerPoints { get; set; }
         public virtual UsersPlayerStateModel UsersPlayerState { get; set; }
+        public string Club { get; set; }
+        public string League { get; set; }
         public int Level { get; set; }
         public int Experience { get; set; }
         public int RequiredExperience { get; set; }

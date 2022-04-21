@@ -34,23 +34,12 @@ namespace Basketball_Manager_Api.Controllers
             _jwtService = jwtService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult> GetUsers()
-        {
-            return Ok(await _userRepository.GetAllUsers());
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<UserViewModel>>> GetUser(string id)
-        {
-            return Ok(await _userRepository.GetUser(id));
-        }
-
         [HttpPost("create")]
         public async Task<IActionResult> PostRegister(RegisterPostModel registerPostModel)
         {
             return Ok(await _userRepository.PostAccountCreate(registerPostModel));
         }
+
         [HttpPost("login")]
         public ActionResult PostLogin(LoginPostModel loginPostModel)
         {
@@ -59,7 +48,6 @@ namespace Basketball_Manager_Api.Controllers
             {
                 Response.Cookies.Append("jwt", jwt, new CookieOptions
                 {
-                    //HttpOnly = true,
                     Secure = true,
                     SameSite = SameSiteMode.None,
                 });

@@ -130,6 +130,18 @@
                     height: 30px;
                     border: unset;
                 }
+ 
+                .action-btn {
+                    font-size: 12px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    padding: 7px 3px;
+                    margin-right: 4px;
+
+                    &:hover {
+                        color: white;
+                    }
+                }
 
                 a:hover {
                     color: $orange-hover;

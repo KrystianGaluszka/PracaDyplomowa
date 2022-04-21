@@ -10,8 +10,6 @@ namespace Basketball_Manager_Db.Interfaces
 {
     public interface IItemRepository
     {
-        Task<IEnumerable<ItemViewModel>> GetAllItems();
-        Task<ItemViewModel> GetItem(int id);
         Task<string> PutUserItem(ItemPutModel itemPutModel);
         Task<string> ExtendContract(ExtendContract extendContract);
         Task<string> UseItem(UseItemPutModel useItemPutModel);

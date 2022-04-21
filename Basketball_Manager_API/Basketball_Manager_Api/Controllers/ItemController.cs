@@ -23,18 +23,6 @@ namespace Basketball_Manager_Api.Controllers
             _itemRepository = itemRepository;
         }
 
-        [HttpGet]
-        public async Task<ActionResult> GetAll()
-        {
-            return Ok(await _itemRepository.GetAllItems());
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult> Get(int id)
-        {
-            return Ok(await _itemRepository.GetItem(id));
-        }
-
         [HttpPut("additem")]
         public async Task<ActionResult> PostUserItem(ItemPutModel itemPutModel)
         {

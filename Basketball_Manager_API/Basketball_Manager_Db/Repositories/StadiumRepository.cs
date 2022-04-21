@@ -21,26 +21,6 @@ namespace Basketball_Manager_Db.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<StadiumViewModel>> GetAllStadiums()
-        {
-            var stadiums = await _context.Stadiums.ToListAsync();
-            var mapper = new Mapper(MapperConfig());
-
-            var stadiumsModel = mapper.Map<List<StadiumModel>, List<StadiumViewModel>>(stadiums);
-
-            return stadiumsModel;
-        }
-
-        public async Task<StadiumViewModel> GetStadium(int id)
-        {
-            var stadium = await _context.Stadiums.FirstOrDefaultAsync(x => x.Id == id);
-            var mapper = new Mapper(MapperConfig());
-
-            var stadiumModel = mapper.Map<StadiumModel, StadiumViewModel>(stadium);
-
-            return stadiumModel;
-        }
-
         public async Task<string> UpgradeStadium(UpgradeStadiumPutModel upgradeStadiumPutModel)
         {
             var user = _context.Users.FirstOrDefault(x => x.Id == upgradeStadiumPutModel.UserId);

@@ -99,7 +99,10 @@ namespace Basketball_Manager_Api
             app.UseRouting();
 
             app.UseCors(
-                o => o.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowCredentials()
+                o => o.WithOrigins("http://localhost:3000")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
             );
 
             app.UseAuthorization();

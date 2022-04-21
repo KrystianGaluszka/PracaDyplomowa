@@ -5,7 +5,6 @@ namespace Basketball_Manager_Db.Interfaces
 {
     public interface INotificationRepository
     {
-        Task<string> PostCreateNotification(NotificationPostModel notificationPostModel);
         Task<string> DeleteNotification(int id);
         Task<string> DeleteAllNotification(string userId);
     }

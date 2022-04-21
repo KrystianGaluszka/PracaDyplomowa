@@ -22,29 +22,6 @@ namespace Basketball_Manager_Api.Controllers
             _sponsorRepository = sponsorRepository;
         }
 
-        [HttpGet("sponsor")]
-        public async Task<ActionResult> GetAllSponsors()
-        {
-            return Ok(await _sponsorRepository.GetAllSponsors());
-        }
-
-        [HttpGet("sponsor/{id}")]
-        public async Task<ActionResult> GetSponsor(int id)
-        {
-            return Ok(await _sponsorRepository.GetSponsor(id));
-        }
-        [HttpGet("usersponsor")]
-        public async Task<ActionResult> GetAllUserSponsors()
-        {
-            return Ok(await _sponsorRepository.GetAllUserSponsors());
-        }
-
-        [HttpGet("usersponsor/{id}")]
-        public async Task<ActionResult> GetUserSponsor(int id)
-        {
-            return Ok(await _sponsorRepository.GetUserSponsor(id));
-        }
-
         [HttpPut("sponsor/changesponsor")]
         public async Task<ActionResult> ChangeSponsor(ChangeSponsorPutModel changeSponsorPutModel)
         {

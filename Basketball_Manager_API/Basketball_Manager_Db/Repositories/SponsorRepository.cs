@@ -21,46 +21,6 @@ namespace Basketball_Manager_Db.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<UsersSponsorViewModel>> GetAllUserSponsors()
-        {
-            var sponsors = await _context.UsersSponsors.ToListAsync();
-            var mapper = new Mapper(MapperConfig());
-
-            var sponsorsModel = mapper.Map<List<UsersSponsorModel>, List<UsersSponsorViewModel>>(sponsors);
-
-            return sponsorsModel;
-        }
-
-        public async Task<UsersSponsorViewModel> GetUserSponsor(int id)
-        {
-            var sponsor = await _context.UsersSponsors.FirstOrDefaultAsync(x => x.Id == id);
-            var mapper = new Mapper(MapperConfig());
-
-            var sponsorModel = mapper.Map<UsersSponsorModel, UsersSponsorViewModel>(sponsor);
-
-            return sponsorModel;
-        }
-
-        public async Task<IEnumerable<SponsorsViewModel>> GetAllSponsors()
-        {
-            var sponsors = await _context.Sponsors.ToListAsync();
-            var mapper = new Mapper(MapperConfig());
-
-            var sponsorsModel = mapper.Map<List<SponsorsModel>, List<SponsorsViewModel>>(sponsors);
-
-            return sponsorsModel;
-        }
-
-        public async Task<SponsorsViewModel> GetSponsor(int id)
-        {
-            var sponsor = await _context.Sponsors.FirstOrDefaultAsync(x => x.Id == id);
-            var mapper = new Mapper(MapperConfig());
-
-            var sponsorModel = mapper.Map<SponsorsModel, SponsorsViewModel>(sponsor);
-
-            return sponsorModel;
-        }
-
         public async Task<string> ChangeSponsor(ChangeSponsorPutModel changeSponsorPutModel)
         {
             var user = _context.Users.FirstOrDefault(x=> x.Id == changeSponsorPutModel.UserId);

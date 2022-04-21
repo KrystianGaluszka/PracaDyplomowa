@@ -22,22 +22,10 @@ namespace Basketball_Manager_Api.Controllers
             _playerRepository = playerRepository;
         }
 
-        [HttpGet]
-        public async Task<ActionResult> GetAll()
-        {
-            return Ok(await _playerRepository.GetAllPlayers());
-        }
-
         [HttpGet("usersplayers")]
         public async Task<ActionResult> GetAllUsersPlayers()
         {
             return Ok(await _playerRepository.GetAllUsersPlayers());
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult> Get(int id)
-        {
-            return Ok(await _playerRepository.GetPlayer(id));
         }
 
         [HttpPut("editSquad")]

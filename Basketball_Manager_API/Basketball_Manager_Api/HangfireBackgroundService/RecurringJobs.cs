@@ -72,6 +72,18 @@ namespace Basketball_Manager_Api.HangfireBackgroundService
                 }
             }
             await _context.SaveChangesAsync();
+            return;
+        }
+        public async Task SubtractContracts()
+        {
+            var usersPlayers = _context.UsersPlayers;
+
+            foreach (var user in usersPlayers)
+            {
+                user.Contract -= 1;
+            }
+            await _context.SaveChangesAsync();
+            return;
         }
     }
 }

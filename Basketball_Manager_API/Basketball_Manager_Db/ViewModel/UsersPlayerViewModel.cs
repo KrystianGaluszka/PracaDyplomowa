@@ -13,6 +13,8 @@ namespace Basketball_Manager_Db.ViewModel
         public UserViewModel User { get; set; }
         public UsersPlayerPointsViewModel UsersPlayerPoints { get; set; }
         public UsersPlayerStateViewModel UsersPlayerState { get; set; }
+        public string Club { get; set; }
+        public string League { get; set; }
         public int Level { get; set; }
         public int Experience { get; set; }
         public int RequiredExperience { get; set; }

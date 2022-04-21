@@ -100,9 +100,9 @@ export const Sponsors = ({user}:{user: IUser}) => {
                             </TableRow>
                             <TableRow className='sponsor-table-body--row'>
                                 <TableCell align='left' className='sponsor-table-body--cell'>Title prize</TableCell>
-                                <TableCell align='center' className='sponsor-table-body--cell'>{sponsor?.sponsor.titlePrize}$</TableCell>
-                                <TableCell align='center' className='sponsor-table-body--cell'>{sponsor?.titlePrizeCount}</TableCell>
-                                <TableCell align='right' className='sponsor-table-body--cell'>{sponsor?.titlePrizeTotality}$</TableCell>
+                                <TableCell align='center' className='sponsor-table-body--cell'>{Math.round(sponsor?.sponsor.titlePrize! * user.userDetail.rankPoints / 150)}$</TableCell>
+                                <TableCell align='center' className='sponsor-table-body--cell'></TableCell>
+                                <TableCell align='right' className='sponsor-table-body--cell'></TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>
@@ -129,7 +129,7 @@ export const Sponsors = ({user}:{user: IUser}) => {
                             <div className='name'>{sponsor.name}</div>
                             <div className='match-prize'>{sponsor.matchPrize}$</div>
                             <div className='win-prize'>{sponsor.winPrize}$</div>
-                            <div className='title-prize'>{sponsor.titlePrize}$</div>
+                            <div className='title-prize'>{Math.round(sponsor.titlePrize * user.userDetail.rankPoints / 120)}$</div>
                             <div className='required-level'>{sponsor.requiredLevel}lvl</div>
                             <div className='choose-button'>
                                 {sponsor.requiredLevel <= squadLevel ? 
@@ -149,6 +149,7 @@ export const Sponsors = ({user}:{user: IUser}) => {
                     <div>
                         Sponsor can be available when your players level who are in the playing squad 
                         is bigger than the required level.
+                        Title prize is defined by your rank points.
                     </div>
                     <div style={{ fontSize: 10, marginTop: 10 }}>
                         {`*Total level of squad players >= required level`}

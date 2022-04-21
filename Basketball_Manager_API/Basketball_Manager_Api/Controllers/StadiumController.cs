@@ -22,18 +22,6 @@ namespace Basketball_Manager_Api.Controllers
             _stadiumRepository = stadiumRepository;
         }
 
-        [HttpGet]
-        public async Task<ActionResult> GetAll()
-        {
-            return Ok(await _stadiumRepository.GetAllStadiums());
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult> Get(int id)
-        {
-            return Ok(await _stadiumRepository.GetStadium(id));
-        }
-
         [HttpPut("upgrade")]
         public async Task<IActionResult> UpgrafeStadium(UpgradeStadiumPutModel upgradeStadiumPutModel)
         {

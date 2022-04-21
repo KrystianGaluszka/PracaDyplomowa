@@ -21,16 +21,6 @@ namespace Basketball_Manager_Db.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<PlayerViewModel>> GetAllPlayers()
-        {
-            var players = await _context.Players.ToListAsync();
-            var mapper = new Mapper(MapperConfig());
-
-            var playersModel = mapper.Map<List<PlayerModel>, List<PlayerViewModel>>(players);
-
-            return playersModel;
-        }
-
         public async Task<IEnumerable<UsersPlayerViewModel>> GetAllUsersPlayers()
         {
             var usersPlayers = await _context.UsersPlayers.ToListAsync();
@@ -39,16 +29,6 @@ namespace Basketball_Manager_Db.Repositories
             var usersPlayersModel = mapper.Map<List<UsersPlayerModel>, List<UsersPlayerViewModel>>(usersPlayers);
 
             return usersPlayersModel;
-        }
-
-        public async Task<PlayerViewModel> GetPlayer(int id)
-        {
-            var player = await _context.Players.FirstOrDefaultAsync(x => x.Id == id);
-            var mapper = new Mapper(MapperConfig());
-
-            var playerModel = mapper.Map<PlayerModel, PlayerViewModel>(player);
-
-            return playerModel;
         }
 
         public async Task<string> EditTeam(EditTeamPutModel editTeamPutModel)

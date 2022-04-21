@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 export const Match = ({user}: {user: IUser}) => {
     const [useEffectRender, setUseEffectRender] = useState(false)
     const [actualMatch, setActualMatch] = useState<IUserMatchesHistory>()
-    const [isMatchStarted, setIsMatchStarted] = useState(false)
+    const [isMatchStarted, setIsMatchStarted] = useState(true)
     const [user1Won, setUser1Won] = useState(false)
     const [user2Won, setUser2Won] = useState(false)
     const [timerColor, setTimerColor] = useState('white')
@@ -30,7 +30,7 @@ export const Match = ({user}: {user: IUser}) => {
     }
     
     useEffect(() => {
-        if (!user.isPlaying) navigate('/league/play')
+        // if (!user.isPlaying) navigate('/league/play')
         let interval: any = null;
         interval = setInterval(() => {
         setUseEffectRender(render => !render) // rerender useEffecta co 1s
@@ -68,7 +68,7 @@ export const Match = ({user}: {user: IUser}) => {
             .catch(error => console.log(error))
 
             await axios.get<IBackgroundTask>(`https://localhost:44326/api/Match/matchtask/${userId}`)
-                .then(res => setIsMatchStarted(res.data.isStarted))
+                // .then(res => setIsMatchStarted(res.data.isStarted))
                 .catch(error => console.log(error))
         }
 
@@ -81,13 +81,13 @@ export const Match = ({user}: {user: IUser}) => {
         return(
             <div className='match-container'>
                 <div className='match-table'>
-                    <div className='user'>
+                    <div className='user left-user'>
                         {user1Won ?<div className='crown-icon'><BiCrown /></div> : ''}
                         <div className='club-name' style={{color: userColor} }>{actualMatch?.userClub}</div>
                         <div className='score left-score' style={{color: userScoreColor} }>{actualMatch?.userScore}</div>
                     </div>
                     <div className='dash'>-</div>
-                    <div className='user'>
+                    <div className='user right-user'>
                         <div className='score right-score' style={{color: user2ScoreColor} }>{actualMatch?.user2Score}</div>
                         <div className='club-name' style={{color: user2Color} }>{actualMatch?.user2Club}</div>
                         {user2Won ? <div className='crown-icon'><BiCrown /></div> : ''}

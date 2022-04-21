@@ -28,30 +28,6 @@ namespace Basketball_Manager_Db.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<UserViewModel>> GetAllUsers()
-        {
-            var users = await _context.Users.ToListAsync(); 
-            
-            var config = MapperConfig();
-            var mapper = new Mapper(config);
-
-            var usersModel = mapper.Map<List<UserModel>, List<UserViewModel>>(users);
-
-            return usersModel;
-        }
-
-        public async Task<UserViewModel> GetUser(string id)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-
-            var config = MapperConfig();
-            var mapper = new Mapper(config);
-
-            var userModel = mapper.Map<UserModel, UserViewModel>(user);
-
-            return userModel;
-        }
-
         public async Task<IEnumerable<RankRequirementViewModel>> GetRankTable()
         {
             var rankTable = await _context.RankRequirements.ToListAsync();
@@ -67,6 +43,7 @@ namespace Basketball_Manager_Db.Repositories
         {
             var id = Guid.NewGuid().ToString();
             var emails = _context.Users.Select(x => x.Email);
+
             if (emails.Contains(registerPostModel.Email))
             {
                 return null;
@@ -118,7 +95,9 @@ namespace Basketball_Manager_Db.Repositories
                     RequiredExperience = player.Level * 100,
                     UsersPlayerPoints = playerPoints,
                     UsersPlayerState = playerState,
-                    TrainingType = Training.None
+                    TrainingType = Training.None,
+                    Club = registerPostModel.ClubName,
+                    League = "Bronze"
                 });
             }
 

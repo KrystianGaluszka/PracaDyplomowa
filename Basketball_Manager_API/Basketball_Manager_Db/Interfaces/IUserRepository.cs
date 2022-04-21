@@ -11,8 +11,6 @@ namespace Basketball_Manager_Db.Interfaces
 {
     public interface IUserRepository
     {
-        Task<IEnumerable<UserViewModel>> GetAllUsers();
-        Task<UserViewModel> GetUser(string id);
         Task<IEnumerable<RankRequirementViewModel>> GetRankTable();
         Task<string> PostAccountCreate(RegisterPostModel registerPostModel);
         string GetJwt(LoginPostModel loginPostModel);

@@ -20,12 +20,6 @@ namespace Basketball_Manager_Api.Controllers
             _context = context;
         }
 
-        [HttpPost("create")]
-        public async Task<IActionResult> CreateNotification(NotificationPostModel notificationPostModel)
-        {
-            return Ok(await _notificationRepository.PostCreateNotification(notificationPostModel));
-        }
-
         [HttpDelete("delete")]
         public async Task<IActionResult> DeleteNotification(int notificationId)
         {

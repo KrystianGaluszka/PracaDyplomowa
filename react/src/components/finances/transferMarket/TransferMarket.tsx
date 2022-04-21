@@ -449,7 +449,7 @@ export const TransferMarket = ({user}: {user: IUser}) => {
                                 Bidding team
                             </TableCell>
                             <TableCell align='center' className='table-head--cell market-table-head--cell time'>
-                                Remaining time
+                                Timeleft
                             </TableCell>
                             <TableCell align='right' className='table-head--cell market-table-head--cell action'>
                                 Action
@@ -470,11 +470,12 @@ export const TransferMarket = ({user}: {user: IUser}) => {
                                 <TableCell align='center' className='table-body--cell market-table-body--cell level'>{auction.usersPlayer.level}</TableCell>
                                 <TableCell align='center' className='table-body--cell market-table-body--cell price'>{moneyFormatter.format(auction.price)}</TableCell>
                                 <TableCell align='center' className='table-body--cell market-table-body--cell team'>{auction.usersPlayer.user.clubName}</TableCell>
-                                <TableCell align='center' className='table-body--cell market-table-body--cell time'>JAKIS CZAS</TableCell>
+                                <TableCell align='center' className='table-body--cell market-table-body--cell time'>
+                                    {auction.hours < 10 ? '0' + auction.hours.toString() : auction.hours}:{auction.minutes < 10 ? '0' + auction.minutes.toString() : auction.minutes}
+                                </TableCell>
                                 <TableCell align="right" className='table-body--cell market-table-body--cell action'>
-                                    <a onClick={() => handleShowModal('bid', auction.id)}>Bid</a>
-                                    /
-                                    <a onClick={() => handleShowModal('buy', auction.id)}>Buy</a>
+                                    <a className='btn-orange bid action-btn' onClick={() => handleShowModal('bid', auction.id)}>Bid</a>
+                                    <a className='btn-orange buy action-btn' onClick={() => handleShowModal('buy', auction.id)}>Buy</a>
                                 </TableCell>
                             </TableRow>
                         )})}
@@ -637,6 +638,7 @@ export const TransferMarket = ({user}: {user: IUser}) => {
                                         </TableCell>
                                         <TableCell className='table-body--cell quick-sell-table-body--cell'>{player.player.name}</TableCell>
                                         <TableCell className='table-body--cell quick-sell-table-body--cell'>{player.player.surname}</TableCell>
+                                        <TableCell className='table-body--cell quick-sell-table-body--cell'>{player.level * 100}$</TableCell>
                                         <TableCell align="right" className='table-body--cell quick-sell-table-body--cell'>{player.level}</TableCell>
                                     </TableRow>
                                 ))}

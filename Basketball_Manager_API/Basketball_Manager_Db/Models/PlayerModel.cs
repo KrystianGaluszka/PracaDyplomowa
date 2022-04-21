@@ -14,8 +14,6 @@ namespace Basketball_Manager_Db.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Country { get; set; }
-        public string Club { get; set; }
-        public string League { get; set; }
         public double Weight { get; set; }
         public double Height { get; set; }
         public PlayerRarity Rarity{ get; set; }

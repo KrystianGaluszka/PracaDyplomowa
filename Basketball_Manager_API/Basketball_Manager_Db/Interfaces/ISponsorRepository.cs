@@ -10,11 +10,6 @@ namespace Basketball_Manager_Db.Interfaces
 {
     public interface ISponsorRepository
     {
-        Task<IEnumerable<UsersSponsorViewModel>> GetAllUserSponsors();
-        Task<UsersSponsorViewModel> GetUserSponsor(int id);
-        Task<IEnumerable<SponsorsViewModel>> GetAllSponsors();
-        Task<SponsorsViewModel> GetSponsor(int id);
-
         Task<string> ChangeSponsor(ChangeSponsorPutModel changeSponsorPutModel);
     }
 }

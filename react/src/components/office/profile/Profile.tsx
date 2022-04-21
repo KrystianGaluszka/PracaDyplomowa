@@ -10,6 +10,7 @@ import countryList from 'react-select-country-list'
 
 export const Profile = ( {userProp}: {userProp: IUser} ) => {
     const [user, setUser] = useState<IUser>()
+    const [userPassword, setUserPassword] = useState('')
     const [picPath, setPicPath] = useState('')
     const [isDisable, setIsDisable] = useState(true)
     const [isDisable1, setIsDisable1] = useState(true)
@@ -37,6 +38,7 @@ export const Profile = ( {userProp}: {userProp: IUser} ) => {
             setUser(userProp)
             setPicPath(userProp.profilePicturePath)
             setEditIcon('https://localhost:44326/images/edit.png')
+            setUserPassword('●'.repeat(userProp.password.length))
         }
 
         getUser()
@@ -210,7 +212,7 @@ export const Profile = ( {userProp}: {userProp: IUser} ) => {
                                     <img alt='editIcon' src={ editIcon }/>
                                 </button>
                             </div>
-                            {isDisable2 ? <div className='content'>{ user?.password }</div> : 
+                            {isDisable2 ? <div className='content'>{ userPassword }</div> : 
                             <Form.Control className='edit-input'
                                 type="password"
                                 placeholder="new password"

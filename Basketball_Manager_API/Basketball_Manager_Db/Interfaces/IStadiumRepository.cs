@@ -10,8 +10,6 @@ namespace Basketball_Manager_Db.Interfaces
 {
     public interface IStadiumRepository
     {
-        Task<IEnumerable<StadiumViewModel>> GetAllStadiums();
-        Task<StadiumViewModel> GetStadium(int id);
         Task<string> UpgradeStadium(UpgradeStadiumPutModel upgradeStadiumPutModel);
         Task<string> ChangeStadiumName(StadiumPutModel stadiumPutModel);
 
