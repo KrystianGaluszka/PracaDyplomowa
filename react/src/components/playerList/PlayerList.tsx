@@ -1,10 +1,9 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
-import { IPlayer, IUser } from '../../shared/interfaces';
+import { IUser } from '../../shared/interfaces';
 import '../../shared/subPageHelper.scss'
 
 export const PlayerList = () => {
-    const token = localStorage.getItem('user-id')
     const [players, setPlayers] = useState<IUser[]>([])
     const [isLoading, setIsLoading] = useState(true)
 
@@ -23,7 +22,6 @@ export const PlayerList = () => {
         fetchData()
     }, []);
 
-    console.log(players)
     if (isLoading) {
         return <>Loading...</>
     } else {

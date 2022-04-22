@@ -2,8 +2,7 @@ import { Radio, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/ma
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Alert, Modal } from 'react-bootstrap'
-import { IItem, IUser, IUsersItems, IUsersPlayer } from '../../../shared/interfaces'
-import Title from '../../../shared/Title'
+import { IUser, IUsersItems, IUsersPlayer } from '../../../shared/interfaces'
 import './style.scss'
 
 export const Inventory = ({user}: {user: IUser}) => {
@@ -66,11 +65,10 @@ export const Inventory = ({user}: {user: IUser}) => {
         const userPlayerId = selectedOption
         const data = {userItemId, userPlayerId}
 
-        let apiError: any
         let response: any
         await axios.put('https://localhost:44326/api/Item/useitem', data)
             .then(res => response = res.data)
-            .catch(error => apiError = error)
+            .catch(error => console.log(error))
         
         if (response === 'success') {
             setItemModal(false)
@@ -79,8 +77,6 @@ export const Inventory = ({user}: {user: IUser}) => {
             window.setTimeout(() => {
                 window.location.reload()
             }, 600)
-        } else {
-            console.log(apiError)
         }
     }
 
@@ -90,7 +86,6 @@ export const Inventory = ({user}: {user: IUser}) => {
 
         await axios.put<IUsersPlayer[]>('https://localhost:44326/api/Item/openChest', data)
             .then(res => {
-                console.log(res.data)
                 setDroppedPlayers(res.data)
             })
             .catch(error => console.log(error))

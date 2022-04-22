@@ -1,6 +1,6 @@
 import react, { useEffect } from 'react'
 import { IUser } from '../../../shared/interfaces'
-import ApexCharts, { ApexOptions } from 'apexcharts'
+import { ApexOptions } from 'apexcharts'
 import ReactApexChart from 'react-apexcharts'
 import './style.scss'
 import { useState } from 'react'

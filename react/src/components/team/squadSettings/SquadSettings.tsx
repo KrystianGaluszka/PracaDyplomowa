@@ -54,7 +54,7 @@ export const SquadSettings = ({usersPlayers, user}: {usersPlayers: IUsersPlayer[
             let sg = squad.filter(x => x.player.position === "SG").length
             let sf = squad.filter(x => x.player.position === "SF").length
             let pf = squad.filter(x => x.player.position === "PF").length
-            console.log(c,pg,sg,sf,pf)
+
             if (c > 1 || pg > 1 || sg > 1 || sf > 1 || pf > 1) {
                 setAlertMessage('Cannot be more than 1 player at one position')
                 setIsError(true)
@@ -102,7 +102,6 @@ export const SquadSettings = ({usersPlayers, user}: {usersPlayers: IUsersPlayer[
         const value = event.currentTarget.value 
         setSelectValue(value)
         setIsEdited(true)
-        console.log(selectValue)
     }
 
     const handleShowModal = (playerId: number) => {
@@ -123,14 +122,10 @@ export const SquadSettings = ({usersPlayers, user}: {usersPlayers: IUsersPlayer[
         if(count != 0 && count != undefined) {
             let userItemId = contracts?.id!
             let userPlayerId = clickedUser?.id!
-    
             const data = {count, userItemId, userPlayerId}
-            let response = ''
     
             await axios.put('https://localhost:44326/api/Item/extendcontract', data)
-                .then(res => response = res.data)
                 .catch(error => console.log(error))
-            console.log(response)
     
             setShow(false)
             setIsSuccess(true)

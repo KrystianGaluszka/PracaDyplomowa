@@ -31,9 +31,7 @@ export const Stadium = ({stadium, user}: {stadium: IStadium, user: IUser}) => {
             .then(res => response = res.data)
             .catch(error => apiError = error)
 
-        if (response !== 'success') {
-            console.log(apiError)
-        } else {
+        if (response == 'success') {
             setAlertMessage('Upgraded successfully')
             setIsSuccess(true)
             window.setTimeout(() => {
@@ -67,7 +65,6 @@ export const Stadium = ({stadium, user}: {stadium: IStadium, user: IUser}) => {
     const handleInput = (e: any) => {
         const value = e.target.value
         setStadiumName(value)
-        console.log(name)
     }
 
     const handleCloseModal = () => setShow(false)

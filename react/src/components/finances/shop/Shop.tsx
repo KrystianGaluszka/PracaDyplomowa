@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { IItem, IUser, IUsersItems } from '../../../shared/interfaces'
+import { IItem, IUser } from '../../../shared/interfaces'
 import { BsCurrencyDollar } from 'react-icons/bs'
 import './style.scss'
 import { Form, Modal } from 'react-bootstrap'
@@ -46,9 +46,7 @@ export const Shop = ({user}: {user: IUser}) => {
                 apiError = error
             })
 
-        if(response !== 'success') {
-            console.log(apiError)
-        } else {
+        if(response === 'success') {
             setShow(false)
         }
     }

@@ -90,8 +90,6 @@ export const TeamList = ({usersPlayers, user}: {usersPlayers: IUsersPlayer[], us
             
         }
         setClickedPlayer(playerDeepCopy)
-        console.log(sourcePlayer)
-        console.log(playerDeepCopy)
     }
 
     const handleCloseModal = () => setShow(false)

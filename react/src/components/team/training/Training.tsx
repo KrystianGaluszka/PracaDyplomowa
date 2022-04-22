@@ -88,7 +88,6 @@ export const Training = ({user}: {user: IUser}) => {
                 trainingType: option.trainingType.substring(option.trainingType.indexOf('-') + 1)
             })
         })
-        console.log({userId, userPlayersOption})
         let response
         await axios.put('https://localhost:44326/api/Player/updatetraining', {userId, userPlayersOption})
         .then(res => response = res.data)
@@ -100,11 +99,6 @@ export const Training = ({user}: {user: IUser}) => {
                     setIsSuccess(false)
                 }, 1000)
         }
-    }
-
-    const clickTest = () => {
-        console.log(selectedOption)
-        console.log(user)
     }
 
     return(
@@ -122,7 +116,6 @@ export const Training = ({user}: {user: IUser}) => {
                             <TableCell 
                                 align='center'
                                 className='table-head--cell training-table-head--cell name'
-                                onClick={clickTest}
                             >
                                 Name
                             </TableCell>

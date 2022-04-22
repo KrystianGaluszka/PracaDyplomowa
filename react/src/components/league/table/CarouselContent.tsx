@@ -15,7 +15,6 @@ export const CarouselContent = ({users, rankName, subRanks, userId}: {users: IUs
                 })
             setSortedUsers(sorted)
         }
-        console.log(subRanks)
         sorting()
     }, [])
 

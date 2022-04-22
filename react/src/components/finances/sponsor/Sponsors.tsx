@@ -43,9 +43,7 @@ export const Sponsors = ({user}:{user: IUser}) => {
             .then(res => response = res.data)
             .catch(error => apiError = error)
 
-        if (response !== 'success') {
-            console.log(apiError)
-        } else {
+        if (response === 'success') {
             setIsSuccess(true)
             window.setTimeout(() => {
                 window.location.reload()

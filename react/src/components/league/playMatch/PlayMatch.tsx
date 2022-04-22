@@ -2,7 +2,7 @@ import axios from 'axios';
 import react, { useEffect, useState } from 'react'
 import { Alert, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { IUser, IUserMatchesHistory, IUsersPlayer } from '../../../shared/interfaces';
+import { IUser, IUsersPlayer } from '../../../shared/interfaces';
 import './style.scss'
 
 export const PlayMatch = ({user}: {user: IUser}) => {
@@ -33,9 +33,7 @@ export const PlayMatch = ({user}: {user: IUser}) => {
             setClicked(false)
             setInterval(() => {
                 setTimer(timer - 1)
-            }, 1000)
-            
-            console.log(timer)
+            }, 1000)            
         }
 
         let interval: any = null;
@@ -75,7 +73,6 @@ export const PlayMatch = ({user}: {user: IUser}) => {
             }, 1500)
         } else {
             await axios.put('https://localhost:44326/api/Match/queue', data)
-            .then(res => console.log(res.data))
             .catch(error => console.log(error))
 
         setClicked(true)
@@ -90,7 +87,6 @@ export const PlayMatch = ({user}: {user: IUser}) => {
         setMinutes(0)
 
         await axios.put('https://localhost:44326/api/Match/cancelqueue', data)
-            .then(res => console.log(res.data))
             .catch(error => console.log(error))
 
         setClicked(false)

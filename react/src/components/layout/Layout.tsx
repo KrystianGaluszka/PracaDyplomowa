@@ -67,7 +67,7 @@ export const Layout = () => {
                         console.log(error)
                     })
 
-                    if(apiError !== undefined) { // ogarnąć żeby przesłac bool'a by pokazać alert!
+                    if(apiError !== undefined) {
                         if(!(sitePath === '/login' || sitePath === '/register' || sitePath === '/')) {
                             navigate('/login', {
                                 state: {
@@ -94,8 +94,6 @@ export const Layout = () => {
 
     const OnClickLogout = async () => {
         await axios.post('https://localhost:44326/api/User/logout')
-            .then(res => console.log(res.data))
-         
     }
 
     const sidebarItem = (path: string, name: string) => {

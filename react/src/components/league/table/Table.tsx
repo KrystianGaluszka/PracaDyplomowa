@@ -56,7 +56,6 @@ export const Table = ({user}: {user: IUser}) => {
 
             setIsLoading(false)
         }
-        console.log(user)
         getUsers()
     }, [])
 

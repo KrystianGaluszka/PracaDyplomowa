@@ -57,18 +57,15 @@ export const Match = ({user}: {user: IUser}) => {
         let opponentId: string
 
         const getMatch = async () => {
-            console.log('getting data')
             const userId = user.id
             await axios.get<IUserMatchesHistory>(`https://localhost:44326/api/Match/actualmatch/${userId}`)
             .then(res => {
-                console.log(res.data)
                 setActualMatch(res.data)
                 opponentId = res.data.user2Id
             })
             .catch(error => console.log(error))
 
             await axios.get<IBackgroundTask>(`https://localhost:44326/api/Match/matchtask/${userId}`)
-                // .then(res => setIsMatchStarted(res.data.isStarted))
                 .catch(error => console.log(error))
         }
 
