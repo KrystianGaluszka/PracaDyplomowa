@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import './style.scss'
 
 export const StartPage = () => {
-    var path = 'https://localhost:44326/images/'
     let navigate = useNavigate()
-    const cookie = document.cookie.indexOf('jwt') // działa
+    const cookie = document.cookie.indexOf('jwt')
 
     useEffect(() => {
         const isLogged = () => {

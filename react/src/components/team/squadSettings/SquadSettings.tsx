@@ -92,7 +92,6 @@ export const SquadSettings = ({usersPlayers, user}: {usersPlayers: IUsersPlayer[
     }
 
     const handleKeypress = (e: any) => {
-        //it triggers by pressing the enter key
       if (e.code === 'Enter' || e.code === "NumpadEnter") {
         onClickSaveChanges();
       }

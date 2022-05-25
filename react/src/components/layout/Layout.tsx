@@ -46,7 +46,7 @@ export const Layout = () => {
     useEffect(() => {
         let interval: any = null;
         interval = setInterval(() => {
-            setUseEffectRender(render => !render) // rerender useEffecta co 1s
+            setUseEffectRender(render => !render)
           }, 1000)
         const getIds = async () => {
             if (!(sitePath === '/login' || sitePath === '/register' || sitePath === '/')) {

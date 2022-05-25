@@ -30,10 +30,9 @@ export const Match = ({user}: {user: IUser}) => {
     }
     
     useEffect(() => {
-        // if (!user.isPlaying) navigate('/league/play')
         let interval: any = null;
         interval = setInterval(() => {
-        setUseEffectRender(render => !render) // rerender useEffecta co 1s
+        setUseEffectRender(render => !render)
             if (isMatchStarted) {
                 if (minutes != 0 || seconds != 0) {
                     getTime()

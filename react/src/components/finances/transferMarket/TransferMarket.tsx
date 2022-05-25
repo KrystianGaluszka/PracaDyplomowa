@@ -182,12 +182,10 @@ export const TransferMarket = ({user}: {user: IUser}) => {
         const value = e.target.value
         
         setAddAuctionValues({ ...addAuctionValues, [name]: value })
-        console.log(addAuctionValues)
     }
 
     const onChangeSetValue = (e: any) => {
         setSelectedOption(e.target.value)
-        console.log(selectedOption)
     }
 
     const handlePutForAuction = async () => {
@@ -197,11 +195,10 @@ export const TransferMarket = ({user}: {user: IUser}) => {
         const bid = addAuctionValues.bid
         const data = { userId, userPlayerId, price, bid }
 
-        let apiError: any
         let response: any
         await axios.post('https://localhost:44326/api/Auction/add', data)
             .then(res => response = res.data)
-            .catch(error => apiError = error)
+            .catch(error => console.log(error))
 
         if (response === 'success') {
             setAlertMessage('Player putted on auction successfully')
@@ -210,8 +207,6 @@ export const TransferMarket = ({user}: {user: IUser}) => {
             window.setTimeout(() => {
                 window.location.reload()
             }, 600)
-        } else {
-            console.log(apiError)
         }
     }
 
@@ -240,12 +235,11 @@ export const TransferMarket = ({user}: {user: IUser}) => {
         const userId = user.id
         const data = {userPlayerIds, userId}
  
-        let apiError: any
         let response: any
         await axios.put('https://localhost:44326/api/Auction/quicksell', data)
             .then(res => response = res.data)
-            .catch(error => apiError = error)
-        console.log(response)
+            .catch(error => console.log(error))
+
         if (response === 'success') {
             setAlertMessage('Players selled successfully')
             setShow({...show, quickSell: false})
@@ -253,20 +247,17 @@ export const TransferMarket = ({user}: {user: IUser}) => {
             window.setTimeout(() => {
                 window.location.reload()
             }, 600)
-        } else {
-            console.log(apiError)
         }
     }
 
     const handleRemove = async () => {
         const userPlayerIds  = removePlayers
  
-        let apiError: any
         let response: any
         await axios.put('https://localhost:44326/api/Auction/remove', { userPlayerIds })
             .then(res => response = res.data)
-            .catch(error => apiError = error)
-        console.log(response)
+            .catch(error => console.log(error))
+
         if (response === 'success') {
             setAlertMessage('Players removed successfully')
             setShow({...show, remove: false})
@@ -274,8 +265,6 @@ export const TransferMarket = ({user}: {user: IUser}) => {
             window.setTimeout(() => {
                 window.location.reload()
             }, 600)
-        } else {
-            console.log(apiError)
         }
     }
 
@@ -327,11 +316,10 @@ export const TransferMarket = ({user}: {user: IUser}) => {
                 setIsError(false)
             }, 1500)
         } else {
-            let apiError: any
             let response: any
             await axios.put('https://localhost:44326/api/Auction/bid', data)
                 .then(res => response = res.data)
-                .catch(error => apiError = error)
+                .catch(error => console.log(error))
     
             if (response === 'success') {
                 setAlertMessage('Player bidded successfully')
@@ -340,10 +328,8 @@ export const TransferMarket = ({user}: {user: IUser}) => {
                 window.setTimeout(() => {
                     window.location.reload()
                 }, 600)
-            } else {
-                console.log(apiError)
             }
-        }  
+        }
     }
  
     const handleBuy = async () => {
@@ -367,17 +353,16 @@ export const TransferMarket = ({user}: {user: IUser}) => {
                 setIsError(false)
             }, 1500)
         } else {
-            let apiError: any
             let response: any
             await axios.put('https://localhost:44326/api/Auction/buy', data)
                 .then(res => response = res.data)
-                .catch(error => apiError = error)
+                .catch(error => console.log(error))
     
             if (response === 'success') {
                 response = ''
                 await axios.delete(`https://localhost:44326/api/Auction/deleteafterbuy/${auctionId}`)
                     .then(res => response = res.data)
-                    .catch(error => apiError = error)
+                    .catch(error => console.log(error))
     
                 if (response === 'success') {
                     setAlertMessage('Player purchased successfully')
@@ -386,11 +371,7 @@ export const TransferMarket = ({user}: {user: IUser}) => {
                     window.setTimeout(() => {
                         window.location.reload()
                     }, 600)
-                } else {
-                    console.log(apiError)
                 }
-            } else {
-                console.log(apiError)
             }
         }
     }

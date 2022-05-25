@@ -11,7 +11,7 @@ export const Login = () => {
     const [password, setPassword] = useState("")
     const [isChanged, setIsChanged] = useState(false)
     let navigate = useNavigate()
-    const cookie = document.cookie.indexOf('jwt') // działa
+    const cookie = document.cookie.indexOf('jwt')
 
     useEffect(() => {
         const isLogged = () => {
@@ -52,7 +52,6 @@ export const Login = () => {
     }
 
     const handleKeypress = (e: any) => {
-        //it triggers by pressing the enter key
       if (e.code === 'Enter' || e.code === "NumpadEnter") {
         onClickLogin();
       }

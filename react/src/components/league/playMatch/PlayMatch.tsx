@@ -96,7 +96,7 @@ export const PlayMatch = ({user}: {user: IUser}) => {
     if (user.isAccepted) {
         window.setTimeout(async () => {
             setIsAccepted(false)
-            navigate('/league/play/match') // dużo warningów "No routes matched" ok. 50 (to przez ten rerender useEffecta w layoucie)
+            navigate('/league/play/match')
         }, 3000)
     }
 

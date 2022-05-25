@@ -33,7 +33,7 @@ export const Register = () => {
     const [emails, setEmails] = useState<string[]>([])
     const [selectValue, setSelectValue] = useState('')
     const navigate = useNavigate()
-    const cookie = document.cookie.indexOf('jwt') // działa
+    const cookie = document.cookie.indexOf('jwt')
 
     let options = new Array()
     let isValidate = true
@@ -172,7 +172,6 @@ export const Register = () => {
     }
 
     const handleKeypress = (e: any) => {
-        //it triggers by pressing the enter key
       if (e.code === 'Enter' || e.code === "NumpadEnter") {
         onSubmitHandler();
       }
